@@ -1,0 +1,68 @@
+[
+{
+  "model": "core.tipolateralidad",
+  "pk": 1,
+  "fields": {
+    "nombre": "Diestro",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipolateralidad",
+  "pk": 2,
+  "fields": {
+    "nombre": "Zurdo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipolateralidad",
+  "pk": 3,
+  "fields": {
+    "nombre": "Falso diestro",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipolateralidad",
+  "pk": 4,
+  "fields": {
+    "nombre": "Falso zurdo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipolateralidad",
+  "pk": 5,
+  "fields": {
+    "nombre": "Ambidextro",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipolateralidad",
+  "pk": 6,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

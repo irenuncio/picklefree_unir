@@ -1,0 +1,263 @@
+@startuml picklefree_models_5_instalaciones
+
+title Instalaciones deportivas
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype polyline
+skinparam ClassBackgroundColor #Wheat
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.Instalacion <Clubes deportivos>" as core.Instalacion {
+    Instalación deportiva
+    ..
+    Instalaciones deportivas fijas o temporales donde se juega
+    --
+    - id_instalacion (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + plano (FileField) - 
+    + nombre (CharField) - 
+    + direccion_calle_num (CharField) - 
+    + direccion_localidad (CharField) - 
+    + direccion_codigopostal (CharField) - 
+    ~ direccion_provincia (ForeignKey) - 
+    + direccion_pais (CountryField) - 
+    + geoubicacion_latitud (DecimalField) - 
+    + geoubicacion_longitud (DecimalField) - 
+    + telefono_fijo (PhoneNumberField) - 
+    + telefono_movil (PhoneNumberField) - 
+    + telefono_otro (PhoneNumberField) - 
+    + email (EmailField) - 
+    + email_adicional (EmailField) - 
+    + sitio_web (URLField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Instalacion -up- core.Provincia
+
+class "core.Posesion <Clubes deportivos>" as core.Posesion {
+    Posesión [instalación-club]
+    ..
+    Posesion: Tabla de combinación N:M instalacion-club
+    --
+    - id_posesion (AutoField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_posesion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Posesion -up- core.Instalacion
+core.Posesion -up- core.Club
+core.Posesion -up- core.TipoPosesion
+
+class "core.CalendarioInstalacion <Clubes deportivos>" as core.CalendarioInstalacion {
+    Calendario de instalación deportiva
+    ..
+    Calendario global o de club para una instalación dada (cierres prioritarios
+sobre las aperturas)
+    --
+    - id_calendario_instalacion (AutoField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    + fecha_inicio (DateField) - 
+    + fecha_fin (DateField) - 
+    ~ id_tipo_calendario (ForeignKey) - 
+    ~ id_horario_instalacion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CalendarioInstalacion -up- core.Instalacion
+core.CalendarioInstalacion -up- core.Club
+core.CalendarioInstalacion -up- core.TipoCalendario
+core.CalendarioInstalacion -up- core.HorarioInstalacion
+
+class "core.HorarioInstalacion <Clubes deportivos>" as core.HorarioInstalacion {
+    Horario de instalación deportiva
+    ..
+    Horarios globales o de club para una instalación dada
+    --
+    - id_horario_instalacion (AutoField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    ~ id_tipo_diasemanal (ForeignKey) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.HorarioInstalacion -up- core.Instalacion
+core.HorarioInstalacion -up- core.Club
+core.HorarioInstalacion -up- core.TipoDiasemanal
+
+class "core.Dependencia <Clubes deportivos>" as core.Dependencia {
+    Dependencia de instalación deportiva
+    ..
+    Cada lugar de una instalación para otros propósitos
+    --
+    - id_dependencia (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_dependencia (ForeignKey) - 
+    + tiene_llave (BooleanField) - 
+    + dimensiones_longitud (DecimalField) - 
+    + dimensiones_archura (DecimalField) - 
+    + dimensiones_altura (DecimalField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Dependencia -up- core.Instalacion
+core.Dependencia -up- core.TipoDependencia
+
+class "core.Material <Clubes deportivos>" as core.Material {
+    Material
+    ..
+    Elementos portables que se almacenan en dependencias
+    --
+    - id_material (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + cantidad (IntegerField) - 
+    ~ id_dependencia (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Material -up- core.Dependencia
+
+class "core.Pista <Clubes deportivos>" as core.Pista {
+    Pista
+    ..
+    Cada lugar de una instalación donde se juegan partidos
+    --
+    - id_pista (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_pista (ForeignKey) - 
+    ~ id_tipo_suelo (ForeignKey) - 
+    + iluminada (BooleanField) - 
+    + tiene_llave (BooleanField) - 
+    + dimensiones_longitud (DecimalField) - 
+    + dimensiones_archura (DecimalField) - 
+    + dimensiones_altura (DecimalField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Pista -up- core.Instalacion
+core.Pista -up- core.TipoPista
+core.Pista -up- core.TipoSuelo
+
+class "core.CalendarioPista <Clubes deportivos>" as core.CalendarioPista {
+    Calendario de pista
+    ..
+    Calendario de una pista dada (cierres prioritarios sobre las aperturas)
+    --
+    - id_calendario_pista (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    + nombre (CharField) - 
+    + fecha_inicio (DateField) - 
+    + fecha_fin (DateField) - 
+    ~ id_tipo_calendario (ForeignKey) - 
+    ~ id_horario_pista (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CalendarioPista -up- core.Pista
+core.CalendarioPista -up- core.TipoCalendario
+core.CalendarioPista -up- core.HorarioPista
+
+class "core.HorarioPista <Clubes deportivos>" as core.HorarioPista {
+    Horario de pista
+    ..
+    Horarios de una pista dada
+    --
+    - id_horario_pista (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    + nombre (CharField) - 
+    ~ id_tipo_diasemanal (ForeignKey) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.HorarioPista -left- core.Pista
+core.HorarioPista -left- core.TipoDiasemanal
+
+class "core.Operario <Clubes deportivos>" as core.Operario {
+    Operario
+    ..
+    Los operarios son personas que poseen una capacitación
+    --
+    - id_operario (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    ~ id_tipo_capacitacion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Operario -up- core.Persona
+core.Operario -up- core.TipoCapacitacion
+
+
+class "core.Empleo <Clubes deportivos>" as core.Empleo {
+    Empleo [operario-instalación]
+    ..
+    Contrato: Tabla de combinación N:M operario-instalación
+    --
+    - id_empleo (AutoField) - 
+    ~ id_operario (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_empleo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Empleo -up- core.Operario
+core.Empleo -up- core.Instalacion
+core.Empleo -up- core.TipoEmpleo
+
+@enduml

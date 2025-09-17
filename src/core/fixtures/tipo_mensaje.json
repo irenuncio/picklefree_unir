@@ -1,0 +1,57 @@
+[
+{
+  "model": "core.tipomensaje",
+  "pk": 1,
+  "fields": {
+    "nombre": "Interno",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomensaje",
+  "pk": 2,
+  "fields": {
+    "nombre": "SMS",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomensaje",
+  "pk": 3,
+  "fields": {
+    "nombre": "Email",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomensaje",
+  "pk": 4,
+  "fields": {
+    "nombre": "Telegram",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomensaje",
+  "pk": 5,
+  "fields": {
+    "nombre": "WhatsApp",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

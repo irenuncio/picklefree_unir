@@ -1,0 +1,146 @@
+@startuml picklefree_casos_de_uso_administracion
+
+left to right direction
+
+' Propiedades generales del diagrama
+skinparam ArrowThickness 1
+skinparam DefaultFontName Verdana
+skinparam Linetype ortho
+skinparam UsecaseBackgroundColor #LightYellow
+skinparam Shadowing true
+skinparam ActorBorderThickness 2
+'skinparam ActorFontSize 12
+'skinparam UsecaseBorderThickness 2
+'skinparam UsecaseFontSize 12
+
+' Actores
+package "Administración" {
+  :Superusuario: #Blue
+  :Administrador de club: #Orange
+  :Administrador de instalación: #Magenta
+  :Administrador de torneo: #DeepSkyBlue
+}
+
+' Casos de uso
+(CU-01) as "Gestión de usuarios"
+(CU-02) as "Gestión de plataforma"
+(CU-03) as "Autenticación de usuarios"
+(CU-04) as "Gestión de clubes"
+(CU-05) as "Búsqueda de recursos"
+(CU-06) as "Gestión de instalaciones deportivas"
+(CU-07) as "Gestión de pistas"
+(CU-09) as "Gestión de dependencias"
+(CU-10) as "Gestión de materiales deportivos"
+(CU-11) as "Gestión de personas"
+(CU-12) as "Gestión de participantes"
+(CU-13) as "Gestión de directivos"
+(CU-14) as "Gestión de técnicos"
+(CU-15) as "Gestión de operarios"
+(CU-16) as "Gestión de categorías"
+(CU-17) as "Gestión de clases"
+(CU-18) as "Gestión de mensajería"
+(CU-19) as "Gestión de torneos"
+(CU-20) as "Gestión de reservas"
+(CU-21) as "Gestión de partidos"
+(CU-22) as "Gestión de códigos QR"
+(CU-23) as "Gestión de rating"
+(CU-24) as "Gestión de rankings"
+(CU-25) as "Gestión de encuestas"
+(CU-26) as "Gestión de logs"
+(CU-27) as "Gestión/uso de portal"
+
+' Relaciones
+:Superusuario: -[#Blue]-> (CU-01)
+:Administrador de club: -[#Orange]-> (CU-01)
+:Administrador de instalación: -[#Magenta]-> (CU-01)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-01)
+
+:Superusuario: -[#Blue]-> (CU-02)
+
+:Superusuario: -[#Blue]-> (CU-03)
+:Administrador de club: -[#Orange]-> (CU-03)
+:Administrador de instalación: -[#Magenta]-> (CU-03)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-03)
+
+:Superusuario: -[#Blue]-> (CU-04)
+:Administrador de club: -[#Orange]-> (CU-04)
+
+:Superusuario: -[#Blue]-> (CU-05)
+:Administrador de club: -[#Orange]-> (CU-05)
+:Administrador de instalación: -[#Magenta]-> (CU-05)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-05)
+
+:Superusuario: -[#Blue]-> (CU-06)
+:Administrador de instalación: -[#Magenta]-> (CU-06)
+
+:Superusuario: -[#Blue]-> (CU-07)
+:Administrador de instalación: -[#Magenta]-> (CU-07)
+
+:Superusuario: -[#Blue]-> (CU-09)
+:Administrador de instalación: -[#Magenta]-> (CU-09)
+
+:Superusuario: -[#Blue]-> (CU-10)
+:Administrador de instalación: -[#Magenta]-> (CU-10)
+
+:Superusuario: -[#Blue]-> (CU-11)
+:Administrador de club: -[#Orange]-> (CU-11)
+:Administrador de instalación: -[#Magenta]-> (CU-11)
+
+:Superusuario: -[#Blue]-> (CU-12)
+:Administrador de club: -[#Orange]-> (CU-12)
+
+:Superusuario: -[#Blue]-> (CU-13)
+:Administrador de club: -[#Orange]-> (CU-13)
+
+:Superusuario: -[#Blue]-> (CU-14)
+:Administrador de club: -[#Orange]-> (CU-14)
+
+:Superusuario: -[#Blue]-> (CU-15)
+:Administrador de instalación: -[#Magenta]-> (CU-15)
+
+:Superusuario: -[#Blue]-> (CU-16)
+:Administrador de club: -[#Orange]-> (CU-16)
+
+:Superusuario: -[#Blue]-> (CU-17)
+:Administrador de club: -[#Orange]-> (CU-17)
+
+:Superusuario: -[#Blue]-> (CU-18)
+:Administrador de club: -[#Orange]-> (CU-18)
+:Administrador de instalación: -[#Magenta]-> (CU-18)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-18)
+
+:Superusuario: -[#Blue]-> (CU-19)
+:Administrador de club: -[#Orange]-> (CU-19)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-19)
+
+:Superusuario: -[#Blue]-> (CU-20)
+:Administrador de club: -[#Orange]-> (CU-20)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-20)
+
+:Superusuario: -[#Blue]-> (CU-21)
+:Administrador de club: -[#Orange]-> (CU-21)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-21)
+
+:Superusuario: -[#Blue]-> (CU-22)
+:Administrador de club: -[#Orange]-> (CU-22)
+:Administrador de instalación: -[#Magenta]-> (CU-22)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-22)
+
+:Superusuario: -[#Blue]-> (CU-23)
+
+:Superusuario: -[#Blue]-> (CU-24)
+:Administrador de club: -[#Orange]-> (CU-24)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-24)
+
+:Superusuario: -[#Blue]-> (CU-25)
+:Administrador de club: -[#Orange]-> (CU-25)
+:Administrador de instalación: -[#Magenta]-> (CU-25)
+:Administrador de torneo: -[#DeepSkyBlue]-> (CU-25)
+
+:Superusuario: -[#Blue]-> (CU-26)
+
+:Superusuario: -[#Blue]-> (CU-27)
+:Administrador de club: -[#Orange]-> (CU-27)
+:Administrador de instalación: -[#Magenta]-> (CU-27)
+
+@enduml

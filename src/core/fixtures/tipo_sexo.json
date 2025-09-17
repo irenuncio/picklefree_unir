@@ -1,0 +1,24 @@
+[
+{
+  "model": "core.tiposexo",
+  "pk": 1,
+  "fields": {
+    "nombre": "Masculino",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposexo",
+  "pk": 2,
+  "fields": {
+    "nombre": "Femenino",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

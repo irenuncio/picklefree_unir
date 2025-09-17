@@ -1,0 +1,123 @@
+[
+{
+  "model": "core.tipoposesion",
+  "pk": 1,
+  "fields": {
+    "nombre": "Propiedad",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 2,
+  "fields": {
+    "nombre": "Alquiler",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Alquiler con opción a compra",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 4,
+  "fields": {
+    "nombre": "Usufructo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 5,
+  "fields": {
+    "nombre": "Cesión",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 6,
+  "fields": {
+    "nombre": "Concesión Administrativa",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 7,
+  "fields": {
+    "nombre": "Uso compartido",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 8,
+  "fields": {
+    "nombre": "Licencia de uso",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 9,
+  "fields": {
+    "nombre": "Derecho de superficie",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 10,
+  "fields": {
+    "nombre": "Préstamo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoposesion",
+  "pk": 11,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

@@ -1,0 +1,79 @@
+[
+{
+  "model": "core.tipodiasemanal",
+  "pk": 1,
+  "fields": {
+    "nombre": "Lunes",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodiasemanal",
+  "pk": 2,
+  "fields": {
+    "nombre": "Martes",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodiasemanal",
+  "pk": 3,
+  "fields": {
+    "nombre": "Miércoles",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodiasemanal",
+  "pk": 4,
+  "fields": {
+    "nombre": "Jueves",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodiasemanal",
+  "pk": 5,
+  "fields": {
+    "nombre": "Viernes",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodiasemanal",
+  "pk": 6,
+  "fields": {
+    "nombre": "Sábado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodiasemanal",
+  "pk": 7,
+  "fields": {
+    "nombre": "Domingo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

@@ -1,0 +1,47 @@
+# ---------------
+# Exclusiones Git
+# ---------------
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Archivos Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de log
+*.log
+
+# Archivos de bases de datos
+*.sqlite3
+*.db
+
+# Archivos de Django
+*.pot
+*.pyc
+
+# Archivos de test
+htmlcov/
+.coverage
+.tox/
+nosetests.xml
+test_*.xml
+
+# Archivos de distribución
+build/
+dist/
+*.egg-info/
+
+# Archivos temporales
+.DS_Store
+Thumbs.db
+*.bak
+
+# Archivos de secretos
+*.secrets
+secrets.*
+
+# Archivos estáticos (mientras me decido)
+src/staticfiles/

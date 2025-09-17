@@ -1,0 +1,279 @@
+@startuml picklefree_models_9_reservas_inscripciones_y_torneos
+
+title Reservas, Inscripciones y Torneos
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype ortho
+skinparam ClassBackgroundColor #f4d6e1
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.ReservaClub <Clubes deportivos>" as core.ReservaClub {
+    Reserva de club
+    ..
+    Reserva de pista de un club, puede que para un equipo concreto
+    --
+    - id_reserva_club (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaClub -up- core.Pista
+core.ReservaClub -up- core.Club
+core.ReservaClub -up- core.Equipo
+
+class "core.ReservaCurso <Clubes deportivos>" as core.ReservaCurso {
+    Reserva de curso
+    ..
+    Reserva de pista por parte de un curso
+    --
+    - id_reserva_curso (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaCurso -right- core.Pista
+core.ReservaCurso -up- core.Curso
+
+class "core.ReservaJugador <Clubes deportivos>" as core.ReservaJugador {
+    Reserva de jugador
+    ..
+    Reserva de pista por parte de un jugador
+    --
+    - id_reserva_jugador (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaJugador -up- core.Pista
+core.ReservaJugador -up- core.Jugador
+
+class "core.ReservaTorneoDobles <Clubes deportivos>" as core.ReservaTorneoDobles {
+    Reserva de torneo de dobles
+    ..
+    Reserva de pista por parte de un torneo de dobles
+    --
+    - id_reserva_torneo_dobles (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaTorneoDobles -up- core.Pista
+core.ReservaTorneoDobles -up- core.TorneoDobles
+
+class "core.ReservaTorneoEquipos <Clubes deportivos>" as core.ReservaTorneoEquipos {
+    Reserva de torneo por equipos
+    ..
+    Reserva de pista por parte de un torneo por equipos
+    --
+    - id_reserva_torneo_equipos (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_equipos (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaTorneoEquipos -up- core.Pista
+core.ReservaTorneoEquipos -up- core.TorneoEquipos
+
+class "core.ReservaTorneoIndividual <Clubes deportivos>" as core.ReservaTorneoIndividual {
+    Reserva de torneo individual
+    ..
+    Reserva de pista por parte de un torneo individual
+    --
+    - id_reserva_torneo_individual (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaTorneoIndividual -up- core.Pista
+core.ReservaTorneoIndividual -up- core.TorneoIndividual
+
+class "core.InscripcionEquipo <Clubes deportivos>" as core.InscripcionEquipo {
+    Inscripción de equipo en torneo
+    ..
+    Inscripciones de equipos a torneos
+    --
+    - id_inscripcion_equipo (AutoField) - 
+    ~ id_torneo_equipos (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    + fecha (DateField) - 
+    ~ id_estado_inscripcion (ForeignKey) - 
+    --
+}
+core.InscripcionEquipo -up- core.TorneoEquipos
+core.InscripcionEquipo -up- core.Equipo
+core.InscripcionEquipo -up- core.EstadoInscripcion
+
+class "core.InscripcionJugador <Clubes deportivos>" as core.InscripcionJugador {
+    Inscripción de jugador en torneo
+    ..
+    Inscripciones individuales a torneos
+    --
+    - id_inscripcion_jugador (AutoField) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha (DateField) - 
+    ~ id_estado_inscripcion (ForeignKey) - 
+    --
+}
+core.InscripcionJugador -up- core.TorneoIndividual
+core.InscripcionJugador -up- core.Jugador
+core.InscripcionJugador -up- core.EstadoInscripcion
+
+class "core.InscripcionPareja <Clubes deportivos>" as core.InscripcionPareja {
+    Inscripción de pareja en torneo
+    ..
+    Inscripciones de parejas a torneos
+    --
+    - id_inscripcion_pareja (AutoField) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    ~ id_pareja (ForeignKey) - 
+    + fecha (DateField) - 
+    ~ id_estado_inscripcion (ForeignKey) - 
+    --
+}
+core.InscripcionPareja -up- core.TorneoDobles
+core.InscripcionPareja -up- core.Pareja
+core.InscripcionPareja -up- core.EstadoInscripcion
+
+class "core.TorneoDobles <Clubes deportivos>" as core.TorneoDobles {
+    Torneo de dobles
+    ..
+    Torneos de dobles
+    --
+    - id_torneo_dobles (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_director (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + mixto (BooleanField) - 
+    ~ id_tipo_competicion (ForeignKey) - 
+    + rondas_o_jornadas (IntegerField) - 
+    + torneo_inicio (DateField) - 
+    + torneo_fin (DateField) - 
+    + inscripcion_inicio (DateField) - 
+    + inscripcion_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.TorneoDobles -up- core.Club
+core.TorneoDobles -up- core.Tecnico
+core.TorneoDobles -up- core.Instalacion
+core.TorneoDobles -up- core.Categoria
+core.TorneoDobles -up- core.TipoCompeticion
+
+class "core.TorneoEquipos <Clubes deportivos>" as core.TorneoEquipos {
+    Torneo por equipos
+    ..
+    Torneos por equipos
+    --
+    - id_torneo_equipos (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_director (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + integrantes_minimos (IntegerField) - 
+    + integrantes_maximos (IntegerField) - 
+    ~ id_tipo_competicion (ForeignKey) - 
+    + rondas_o_jornadas (IntegerField) - 
+    + torneo_inicio (DateField) - 
+    + torneo_fin (DateField) - 
+    + inscripcion_inicio (DateField) - 
+    + inscripcion_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.TorneoEquipos -up- core.Club
+core.TorneoEquipos -up- core.Tecnico
+core.TorneoEquipos -up- core.Instalacion
+core.TorneoEquipos -up- core.Categoria
+core.TorneoEquipos -up- core.TipoCompeticion
+
+class "core.TorneoIndividual <Clubes deportivos>" as core.TorneoIndividual {
+    Torneo individual
+    ..
+    Torneos individuales
+    --
+    - id_torneo_individual (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_director (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_tipo_competicion (ForeignKey) - 
+    + rondas_o_jornadas (IntegerField) - 
+    + torneo_inicio (DateField) - 
+    + torneo_fin (DateField) - 
+    + inscripcion_inicio (DateField) - 
+    + inscripcion_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.TorneoIndividual -up- core.Club
+core.TorneoIndividual -up- core.Tecnico
+core.TorneoIndividual -up- core.Instalacion
+core.TorneoIndividual -up- core.Categoria
+core.TorneoIndividual -up- core.TipoCompeticion
+
+@enduml

@@ -1,0 +1,335 @@
+@startuml picklefree_models_3_tipos_estados_provincias
+
+title Tipos, Estados, Provincias
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype normal
+skinparam ClassBackgroundColor #LightCyan
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.TipoCalendario <Clubes deportivos>" as core.TipoCalendario {
+    Tipo de calendario
+    ..
+    Tipos de entradas de calendario
+    --
+    - id_tipo_calendario (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoSexo <Clubes deportivos>" as core.TipoSexo {
+    Sexo
+    ..
+    Tipos de sexo posibles
+    --
+    - id_tipo_sexo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoContrato <Clubes deportivos>" as core.TipoContrato {
+    Tipo de contrato
+    ..
+    Tipos posibles de contrato
+    --
+    - id_tipo_contrato (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoCurso <Clubes deportivos>" as core.TipoCurso {
+    Tipo de curso
+    ..
+    Tipos posibles de curso
+    --
+    - id_tipo_curso (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoDependencia <Clubes deportivos>" as core.TipoDependencia {
+    Tipo de dependencia
+    ..
+    Tipos posibles de dependencia
+    --
+    - id_tipo_dependencia (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoMensaje <Clubes deportivos>" as core.TipoMensaje {
+    Tipo de mensaje
+    ..
+    Tipos posibles de mensaje
+    --
+    - id_tipo_mensaje (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoDiasemanal <Clubes deportivos>" as core.TipoDiasemanal {
+    Día de la semana
+    ..
+    Días de la semana
+    --
+    - id_tipo_diasemanal (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoLateralidad <Clubes deportivos>" as core.TipoLateralidad {
+    Tipo de lateralidad
+    ..
+    Tipos posibles de lateralidad
+    --
+    - id_tipo_lateralidad (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoDirectivo <Clubes deportivos>" as core.TipoDirectivo {
+    Tipo de directivo
+    ..
+    Tipos posibles de directivo
+    --
+    - id_tipo_directivo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoMembresia <Clubes deportivos>" as core.TipoMembresia {
+    Tipo de membresía
+    ..
+    Tipos posibles de membresía
+    --
+    - id_tipo_membresia (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoIdentificacion <Clubes deportivos>" as core.TipoIdentificacion {
+    Tipo de identificación
+    ..
+    Tipos posibles de identificación
+    --
+    - id_tipo_identificacion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoPista <Clubes deportivos>" as core.TipoPista {
+    Tipo de pista
+    ..
+    Tipos posibles de pista
+    --
+    - id_tipo_pista (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoSuelo <Clubes deportivos>" as core.TipoSuelo {
+    Tipo de suelo
+    ..
+    Tipos posibles de suelo
+    --
+    - id_tipo_suelo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoTitulacion <Clubes deportivos>" as core.TipoTitulacion {
+    Tipo de titulación
+    ..
+    Tipos posibles de titulación
+    --
+    - id_tipo_titulacion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoPosesion <Clubes deportivos>" as core.TipoPosesion {
+    Tipo de posesión
+    ..
+    Tipos posibles de posesión
+    --
+    - id_tipo_posesion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoCompeticion <Clubes deportivos>" as core.TipoCompeticion {
+    Tipo de competición
+    ..
+    Tipos posibles de competición
+    --
+    - id_tipo_competicion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoEmpleo <Clubes deportivos>" as core.TipoEmpleo {
+    Tipo de empleo
+    ..
+    Tipos posibles de empleo
+    --
+    - id_tipo_empleo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.TipoCapacitacion <Clubes deportivos>" as core.TipoCapacitacion {
+    Tipo de capacitación
+    ..
+    Tipos posibles de capacitación
+    --
+    - id_tipo_capacitacion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.EstadoClase <Clubes deportivos>" as core.EstadoClase {
+    Estado de una clase
+    ..
+    Estados posibles de una clase
+    --
+    - id_estado_clase (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.EstadoEnvio <Clubes deportivos>" as core.EstadoEnvio {
+    Estado de un envío
+    ..
+    Estados posibles de un envío
+    --
+    - id_estado_envio (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.EstadoInscripcion <Clubes deportivos>" as core.EstadoInscripcion {
+    Estado de una inscripción
+    ..
+    Estados posibles de una inscripción
+    --
+    - id_estado_inscripcion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.EstadoPartido <Clubes deportivos>" as core.EstadoPartido {
+    Estado de un partido
+    ..
+    Estados posibles de un partido
+    --
+    - id_estado_partido (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+class "core.Provincia <Clubes deportivos>" as core.Provincia {
+    Provincia
+    ..
+    Provincias de España
+    --
+    - id_provincia (AutoField) - 
+    + nombre (CharField) - 
+    + codigo_ine (CharField) - 
+    --
+}
+
+@enduml

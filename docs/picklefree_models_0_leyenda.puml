@@ -1,0 +1,20 @@
+@startuml picklefree_models_0_leyenda
+
+left to right direction
+
+' Propiedades generales del diagrama
+skinparam Linetype normal
+
+' Modelos
+class "Leyenda de símbolos utilizados" as DESCRIPTION #FFF {
+    - AutoField (clave primaria)
+    ..
+    + Regular field (campo en general)
+    ..
+    # ForeignKey (clave externa, relación M:N)
+    ..
+    ~ ForeignKey (clave externa, relación 1:1 o 1:N)
+    --
+}
+
+@enduml

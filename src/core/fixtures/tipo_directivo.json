@@ -1,0 +1,90 @@
+[
+{
+  "model": "core.tipodirectivo",
+  "pk": 1,
+  "fields": {
+    "nombre": "Presidente",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 2,
+  "fields": {
+    "nombre": "Vicepresidente",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 3,
+  "fields": {
+    "nombre": "Secretario",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 4,
+  "fields": {
+    "nombre": "Tesorero",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 5,
+  "fields": {
+    "nombre": "Vocal",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 6,
+  "fields": {
+    "nombre": "Director deportivo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 7,
+  "fields": {
+    "nombre": "Director de comunicación",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodirectivo",
+  "pk": 8,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

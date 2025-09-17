@@ -1,0 +1,153 @@
+@startuml picklefree_models_2_auth_y_guardian
+
+title Django Auth y Django Guardian
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype normal
+skinparam ClassBackgroundColor #LavenderBlush
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "guardian.UserObjectPermission <Guardian>" as guardian.UserObjectPermission #e6f4d6 {
+    user object permission
+    ..
+    The default implementation of the UserObjectPermissionAbstract model.
+If `GUARDIAN_USER_OBJ_PERMS_MODEL` is not set at the beginning of the project,
+this model will be used.
+Uses Django's contenttypes framework to store generic relations.
+See Also:
+    - [Django's Documentation on Abstract Base
+Models](https://docs.djangoproject.com/en/stable/topics/db/models/#abstract-
+base-classes)
+    - [Django-Guardian Performance Tuning](https://django-
+guardian.readthedocs.io/en/stable/userguide/performance.html)
+    - [How to override the default UserObjectPermission](https://django-
+guardian.readthedocs.io/en/stable/configuration.html#guardian-user-obj-perms-
+model)
+    --
+    - id (AutoField) - 
+    ~ permission (ForeignKey) - 
+    ~ content_type (ForeignKey) - 
+    + object_pk (CharField) - 
+    ~ user (ForeignKey) - 
+    --
+}
+guardian.UserObjectPermission -- auth.Permission
+guardian.UserObjectPermission -- contenttypes.ContentType
+guardian.UserObjectPermission -- auth.User
+
+class "guardian.GroupObjectPermission <Guardian>" as guardian.GroupObjectPermission #e6f4d6 {
+    group object permission
+    ..
+    The default implementation of the GroupObjectPermissionAbstract model.
+If `GUARDIAN_GROUP_OBJ_PERMS_MODEL` is not set at the beginning of the project,
+this model will be used.
+Uses Django's contenttypes framework to store generic relations.
+See Also:
+    - [Django's Documentation on Abstract Base
+Models](https://docs.djangoproject.com/en/stable/topics/db/models/#abstract-
+base-classes)
+    - [Django-Guardian Performance Tuning](https://django-
+guardian.readthedocs.io/en/stable/userguide/performance.html)
+    - [How to override the default GroupObjectPermission](https://django-
+guardian.readthedocs.io/en/stable/configuration.html#guardian-user-obj-perms-
+model)
+    --
+    - id (AutoField) - 
+    ~ permission (ForeignKey) - 
+    ~ content_type (ForeignKey) - 
+    + object_pk (CharField) - 
+    ~ group (ForeignKey) - 
+    --
+}
+guardian.GroupObjectPermission -up- auth.Permission
+guardian.GroupObjectPermission -up- contenttypes.ContentType
+guardian.GroupObjectPermission -up- auth.Group
+
+class "auth.Permission <Autenticación y autorización>" as auth.Permission #e8f4d6 {
+    permiso
+    ..
+    The permissions system provides a way to assign permissions to specific
+users and groups of users.
+The permission system is used by the Django admin site, but may also be
+useful in your own code. The Django admin site uses permissions as follows:
+    - The "add" permission limits the user's ability to view the "add" form
+      and add an object.
+    - The "change" permission limits a user's ability to view the change
+      list, view the "change" form and change an object.
+    - The "delete" permission limits the ability to delete an object.
+    - The "view" permission limits the ability to view an object.
+Permissions are set globally per type of object, not per specific object
+instance. It is possible to say "Mary may change news stories," but it's
+not currently possible to say "Mary may change news stories, but only the
+ones she created herself" or "Mary may only change news stories that have a
+certain status or publication date."
+The permissions listed above are automatically created for each model.
+    --
+    - id (AutoField) - 
+    + name (CharField) - 
+    ~ content_type (ForeignKey) - 
+    + codename (CharField) - 
+    --
+}
+auth.Permission -up- contenttypes.ContentType
+
+class "auth.Group <Autenticación y autorización>" as auth.Group #e8f4d6 {
+    grupo
+    ..
+    Groups are a generic way of categorizing users to apply permissions, or
+some other label, to those users. A user can belong to any number of
+groups.
+A user in a group automatically has all the permissions granted to that
+group. For example, if the group 'Site editors' has the permission
+can_edit_home_page, any user in that group will have that permission.
+Beyond permissions, groups are a convenient way to categorize users to
+apply some label, or extended functionality, to them. For example, you
+could create a group 'Special users', and you could write code that would
+do special things to those users -- such as giving them access to a
+members-only portion of your site, or sending them members-only email
+messages.
+    --
+    - id (AutoField) - 
+    + name (CharField) - 
+    # permissions (ManyToManyField) - 
+    --
+}
+auth.Group *-up-* auth.Permission
+
+class "auth.User <Autenticación y autorización>" as auth.User #e8f4d6 {
+    usuario
+    ..
+    Users within the Django authentication system are represented by this
+model.
+Username and password are required. Other fields are optional.
+    --
+    - id (AutoField) - 
+    + password (CharField) - 
+    + last_login (DateTimeField) - 
+    + is_superuser (BooleanField) - Indica que este usuario tiene todos los
+permisos sin asignárselos explícitamente.
+    + username (CharField) - Requerido. 150 carácteres como máximo. Únicamente
+letras, dígitos y @/./+/-/_
+    + first_name (CharField) - 
+    + last_name (CharField) - 
+    + email (EmailField) - 
+    + is_staff (BooleanField) - Indica si el usuario puede entrar en este sitio de
+administración.
+    + is_active (BooleanField) - Indica si el usuario debe ser tratado como activo.
+Desmarque esta opción en lugar de borrar la cuenta.
+    + date_joined (DateTimeField) - 
+    # groups (ManyToManyField) - Los grupos a los que pertenece este usuario. Un
+usuario tendrá todos los permisos asignados a cada uno de sus grupos.
+    # user_permissions (ManyToManyField) - Permisos específicos para este usuario.
+    --
+}
+auth.User *-up-* auth.Group
+auth.User *-up-* auth.Permission
+
+@enduml

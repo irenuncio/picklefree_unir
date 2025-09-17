@@ -1,0 +1,181 @@
+@startuml picklefree_models_7_categorias_ranking_y_rating
+
+title Categorías, Ranking y Rating
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype polyline
+skinparam ClassBackgroundColor #Beige
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.Categoria <Clubes deportivos>" as core.Categoria {
+    Categoría de club
+    ..
+    Categorías globales o de club para jugadores, parejas y equipos
+    --
+    - id_categoria (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    + condicion_minedad (IntegerField) - 
+    + condicion_maxedad (IntegerField) - 
+    ~ id_tipo_sexo (ForeignKey) - 
+    + condicion_minrating (DecimalField) - 
+    + condicion_maxrating (DecimalField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Categoria -up- core.Club
+core.Categoria -up- core.TipoSexo
+
+class "core.CategoriaEquipo <Clubes deportivos>" as core.CategoriaEquipo {
+    Categoría de equipo
+    ..
+    Tabla de combinación N:M categoría-equipo
+    --
+    - id_categoria_equipo (AutoField) - 
+    ~ id_categoria (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CategoriaEquipo -up- core.Categoria
+core.CategoriaEquipo -up- core.Equipo
+
+class "core.CategoriaJugador <Clubes deportivos>" as core.CategoriaJugador {
+    Categoría de jugador
+    ..
+    Tabla de combinación N:M categoría-jugador
+    --
+    - id_categoria_jugador (AutoField) - 
+    ~ id_categoria (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CategoriaJugador -up- core.Categoria
+core.CategoriaJugador -up- core.Jugador
+
+class "core.CategoriaPareja <Clubes deportivos>" as core.CategoriaPareja {
+    Categoría de pareja
+    ..
+    Tabla de combinación N:M categoría-pareja
+    --
+    - id_categoria_pareja (AutoField) - 
+    ~ id_categoria (ForeignKey) - 
+    ~ id_pareja (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CategoriaPareja -up- core.Categoria
+core.CategoriaPareja -up- core.Pareja
+
+class "core.RankingJugadorClub <Clubes deportivos>" as core.RankingJugadorClub {
+    Ranking de jugador en club
+    ..
+    Ranking de un jugador en un club a lo largo del tiempo
+    --
+    - id_ranking_jugador_club (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingJugadorClub -up- core.Jugador
+core.RankingJugadorClub -up- core.Club
+
+class "core.RankingJugadorTorneo <Clubes deportivos>" as core.RankingJugadorTorneo {
+    Ranking de jugador en torneo
+    ..
+    Ranking de un jugador en un torneo determinado
+    --
+    - id_ranking_jugador_torneo (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingJugadorTorneo -up- core.Jugador
+core.RankingJugadorTorneo -up- core.TorneoIndividual
+
+class "core.RankingParejaClub <Clubes deportivos>" as core.RankingParejaClub {
+    Ranking de pareja en club
+    ..
+    Ranking de una pareja en un club a lo largo del tiempo
+    --
+    - id_ranking_pareja_club (AutoField) - 
+    ~ id_pareja (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingParejaClub -up- core.Pareja
+core.RankingParejaClub -up- core.Club
+
+class "core.RankingParejaTorneo <Clubes deportivos>" as core.RankingParejaTorneo {
+    Ranking de pareja en torneo
+    ..
+    Ranking de una pareja en un torneo de dobles determinado
+    --
+    - id_ranking_pareja_torneo (AutoField) - 
+    ~ id_pareja (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingParejaTorneo -up- core.Pareja
+core.RankingParejaTorneo -up- core.TorneoDobles
+
+class "core.Rating <Clubes deportivos>" as core.Rating {
+    Rating
+    ..
+    Rating de un jugador a lo largo del tiempo
+    --
+    - id_rating (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    + wpr_puntuacion (DecimalField) - 
+    + wpr_incertidumbre (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.Rating -up- core.Jugador
+
+@enduml

@@ -1,0 +1,90 @@
+[
+{
+  "model": "core.tipodependencia",
+  "pk": 1,
+  "fields": {
+    "nombre": "Oficina",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 2,
+  "fields": {
+    "nombre": "Sala de material",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 3,
+  "fields": {
+    "nombre": "Control de entrada",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 4,
+  "fields": {
+    "nombre": "Vestuario masculino",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 5,
+  "fields": {
+    "nombre": "Vestuario femenino",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 6,
+  "fields": {
+    "nombre": "Baño masculino",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 7,
+  "fields": {
+    "nombre": "Baño femenino",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipodependencia",
+  "pk": 8,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

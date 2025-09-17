@@ -1,0 +1,46 @@
+[
+{
+  "model": "core.estadoclase",
+  "pk": 1,
+  "fields": {
+    "nombre": "Por impartir",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoclase",
+  "pk": 2,
+  "fields": {
+    "nombre": "Impartida",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoclase",
+  "pk": 3,
+  "fields": {
+    "nombre": "Aplazada",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoclase",
+  "pk": 4,
+  "fields": {
+    "nombre": "Cancelada",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

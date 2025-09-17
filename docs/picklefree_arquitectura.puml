@@ -1,0 +1,60 @@
+@startuml picklefree_arquitectura
+
+title Arquitectura general de la solución
+
+top to bottom direction
+
+' Propiedades generales del diagrama
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype normal
+skinparam NodeBackgroundColor #LightYellow
+skinparam TitleFontSize 36
+skinparam NodeFontSize 24
+skinparam ComponentFontSize 16
+skinparam DatabaseFontSize 16
+skinparam Shadowing true
+
+' Nodos
+node "Clientes" as clientes {
+  [Navegador web (PC, Tablet, Móvil)] as frontend_cliente #PeachPuff
+}
+
+node "Servidor de Aplicaciones" as servapp {
+    [Frontend responsive (Django Templates + Bootstrap)] as frontend #PeachPuff
+    [Backend (Django)] as backend #GreenYellow
+    [Lógica de negocio] as logica_negocio #Yellow
+    
+    node "Adaptadores" as adaptadores {
+        [Adapter Mapas] as adapter_mapas #LavenderBlush
+        [Adapter Meteo] as adapter_meteo #LavenderBlush
+        [Adapter Mensajería] as adapter_mensajeria #LavenderBlush
+    }
+}
+
+database "Base de datos (PostgreSQL)" as bd #Cyan
+
+node "Servicios Externos" as servicios_externos {
+  [Servicio de mapas] as mapas #LightCyan
+  [Servicio meteorológico] as meteo #LightCyan
+  [Servicio de mensajería] as mensajeria #LightCyan
+  [Servicio de identidad externo] as idp #LightCyan
+  [Servicio de tareas programadas] as tareas #LightCyan
+}
+
+ ' Relaciones
+clientes <--> frontend : HTTP
+frontend <--> backend
+backend <--> logica_negocio
+backend <---> bd : SQL
+logica_negocio ..> adapter_mapas
+adapter_mapas <---> mapas : API REST
+logica_negocio ..> adapter_meteo
+adapter_meteo <---> meteo : API REST
+logica_negocio ..> adapter_mensajeria
+adapter_mensajeria <---> mensajeria : API Mensajería
+logica_negocio <---> tareas : API Tareas programadas
+clientes <--> idp : OIDC+JWT
+backend ..> idp : OIDC+JWT
+
+@enduml

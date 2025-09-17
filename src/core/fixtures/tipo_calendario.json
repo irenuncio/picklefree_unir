@@ -1,0 +1,24 @@
+[
+{
+  "model": "core.tipocalendario",
+  "pk": 1,
+  "fields": {
+    "nombre": "Abierto",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocalendario",
+  "pk": 2,
+  "fields": {
+    "nombre": "Cerrado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

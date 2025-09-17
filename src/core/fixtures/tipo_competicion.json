@@ -1,0 +1,90 @@
+[
+{
+  "model": "core.tipocompeticion",
+  "pk": 1,
+  "fields": {
+    "nombre": "Eliminatoria simple",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 2,
+  "fields": {
+    "nombre": "Eliminatoria doble",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Round Robin",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 4,
+  "fields": {
+    "nombre": "Liga",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 5,
+  "fields": {
+    "nombre": "Suizo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 6,
+  "fields": {
+    "nombre": "Consolación",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 7,
+  "fields": {
+    "nombre": "Fase de grupos y eliminatorias",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocompeticion",
+  "pk": 8,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

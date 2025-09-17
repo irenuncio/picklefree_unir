@@ -1,0 +1,79 @@
+[
+{
+  "model": "core.tipoempleo",
+  "pk": 1,
+  "fields": {
+    "nombre": "Personal de mantenimiento",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoempleo",
+  "pk": 2,
+  "fields": {
+    "nombre": "Personal de limpieza",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoempleo",
+  "pk": 3,
+  "fields": {
+    "nombre": "Personal de seguridad",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoempleo",
+  "pk": 4,
+  "fields": {
+    "nombre": "Personal de atención al cliente",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoempleo",
+  "pk": 5,
+  "fields": {
+    "nombre": "Personal informático",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoempleo",
+  "pk": 6,
+  "fields": {
+    "nombre": "Personal administrativo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoempleo",
+  "pk": 7,
+  "fields": {
+    "nombre": "Director",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

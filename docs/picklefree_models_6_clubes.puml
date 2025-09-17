@@ -1,0 +1,271 @@
+@startuml picklefree_models_6_clubes
+
+title Clubes deportivos
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype polyline
+skinparam ClassBackgroundColor #d6f4de
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.Club <Clubes deportivos>" as core.Club {
+    Club deportivo
+    ..
+    Un club deportivo, con o sin instalaciones propias
+    --
+    - id_club (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + direccion_calle_num (CharField) - 
+    + direccion_localidad (CharField) - 
+    + direccion_codigopostal (CharField) - 
+    ~ direccion_provincia (ForeignKey) - 
+    + direccion_pais (CountryField) - 
+    + telefono_fijo (PhoneNumberField) - 
+    + telefono_movil (PhoneNumberField) - 
+    + telefono_otro (PhoneNumberField) - 
+    + email (EmailField) - 
+    + email_adicional (EmailField) - 
+    + sitio_web (URLField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Club -up- core.Provincia
+
+class "core.CalendarioClub <Clubes deportivos>" as core.CalendarioClub {
+    Calendario de club deportivo
+    ..
+    Calendario de un club determinado (cierres prioritarios sobre las aperturas)
+    --
+    - id_calendario_club (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    + fecha_inicio (DateField) - 
+    + fecha_fin (DateField) - 
+    ~ id_tipo_calendario (ForeignKey) - 
+    ~ id_horario_club (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CalendarioClub -right- core.Club
+core.CalendarioClub -up- core.TipoCalendario
+core.CalendarioClub -right- core.HorarioClub
+
+class "core.HorarioClub <Clubes deportivos>" as core.HorarioClub {
+    Horario de club
+    ..
+    Horarios de un club determinado
+    --
+    - id_horario_club (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    ~ id_tipo_diasemanal (ForeignKey) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.HorarioClub -up- core.Club
+core.HorarioClub -up- core.TipoDiasemanal
+
+class "core.Configuracion <Clubes deportivos>" as core.Configuracion {
+    Configuración de club
+    ..
+    Configuraciones globales o a nivel de club
+    --
+    - id_configuracion (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + puntos_victoria (IntegerField) - 
+    + puntos_empate (IntegerField) - 
+    + puntos_derrota (IntegerField) - 
+    + token_qr_global (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Configuracion -up- core.Club
+
+class "core.Persona <Clubes deportivos>" as core.Persona {
+    Persona
+    ..
+    Agrupamos todos los tipos de persona (evitamos duplicidades)
+    --
+    - id_persona (AutoField) - 
+    + foto (ImageField) - 
+    ~ id_tipo_identificacion (ForeignKey) - 
+    + docidentidad_valor (CharField) - 
+    + nombre (CharField) - 
+    + apellido_primero (CharField) - 
+    + apellido_segundo (CharField) - 
+    ~ id_tipo_sexo (ForeignKey) - 
+    + direccion_calle_num (CharField) - 
+    + direccion_localidad (CharField) - 
+    + direccion_codigopostal (CharField) - 
+    ~ direccion_provincia (ForeignKey) - 
+    + direccion_pais (CountryField) - 
+    + nacimiento_fecha (DateField) - 
+    + nacimiento_localidad (CharField) - 
+    + nacimiento_pais (CountryField) - 
+    + telefono_fijo (PhoneNumberField) - 
+    + telefono_movil (PhoneNumberField) - 
+    + telefono_otro (PhoneNumberField) - 
+    + email (EmailField) - 
+    + email_adicional (EmailField) - 
+    + auth_user (IntegerField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Persona -up- core.TipoIdentificacion
+core.Persona -up- core.TipoSexo
+core.Persona -up- core.Provincia
+
+class "core.Directivo <Clubes deportivos>" as core.Directivo {
+    Directivo de club
+    ..
+    Los directivos son personas con un cargo en un club
+    --
+    - id_directivo (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    + curriculum (FileField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Directivo -up- core.Persona
+
+class "core.Mandato <Clubes deportivos>" as core.Mandato {
+    Mandato [directivo-club]
+    ..
+    Contrato: Tabla de combinación N:M directivo-club
+    --
+    - id_mandato (AutoField) - 
+    ~ id_directivo (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_directivo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Mandato -up- core.Directivo
+core.Mandato -up- core.Club
+core.Mandato -up- core.TipoDirectivo
+
+class "core.Pertenencia <Clubes deportivos>" as core.Pertenencia {
+    Pertenencia [jugador-club]
+    ..
+    Pertenencia: Tabla de combinación N:M jugador-club
+    --
+    - id_pertenencia (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Pertenencia -up- core.Jugador
+core.Pertenencia -up- core.Club
+
+class "core.Membresia <Clubes deportivos>" as core.Membresia {
+    Membresía [jugador-equipo]
+    ..
+    Membresía: Tabla de combinación N:M jugador-equipo
+    --
+    - id_membresia (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    ~ id_tipo_membresia (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Membresia -up- core.Jugador
+core.Membresia -up- core.Equipo
+core.Membresia -up- core.TipoMembresia
+
+class "core.Tecnico <Clubes deportivos>" as core.Tecnico {
+    Técnico
+    ..
+    Los técnicos son personas que poseen una titulación
+    --
+    - id_tecnico (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    + num_federado (CharField) - 
+    ~ id_tipo_titulacion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Tecnico -up- core.Persona
+core.Tecnico -up- core.TipoTitulacion
+
+class "core.Contrato <Clubes deportivos>" as core.Contrato {
+    Contrato [técnico-club]
+    ..
+    Contrato: Tabla de combinación N:M técnico-club
+    --
+    - id_contrato (AutoField) - 
+    ~ id_tecnico (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_contrato (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Contrato -up- core.Tecnico
+core.Contrato -up- core.Club
+core.Contrato -up- core.TipoContrato
+
+class "core.Etapa <Clubes deportivos>" as core.Etapa {
+    Etapa [técnico-equipo]
+    ..
+    Etapa: Tabla de combinación N:M técnico-equipo
+    --
+    - id_etapa (AutoField) - 
+    ~ id_tecnico (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    ~ id_tipo_tecnico_ejercido (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Etapa -up- core.Tecnico
+core.Etapa -up- core.Equipo
+core.Etapa -up- core.Tecnico
+
+@enduml

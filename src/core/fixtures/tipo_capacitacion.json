@@ -1,0 +1,79 @@
+[
+{
+  "model": "core.tipocapacitacion",
+  "pk": 1,
+  "fields": {
+    "nombre": "Mantenimiento",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocapacitacion",
+  "pk": 2,
+  "fields": {
+    "nombre": "Limpieza",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocapacitacion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Seguridad",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocapacitacion",
+  "pk": 4,
+  "fields": {
+    "nombre": "Atención al cliente",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocapacitacion",
+  "pk": 5,
+  "fields": {
+    "nombre": "Informática",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocapacitacion",
+  "pk": 6,
+  "fields": {
+    "nombre": "Administración",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocapacitacion",
+  "pk": 7,
+  "fields": {
+    "nombre": "Alta dirección",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

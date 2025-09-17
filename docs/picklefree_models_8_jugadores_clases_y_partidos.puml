@@ -1,0 +1,215 @@
+@startuml picklefree_models_8_jugadores_clases_y_partidos
+
+title Jugadores, Clases y Partidos
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype polyline
+skinparam ClassBackgroundColor #AliceBlue
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.Jugador <Clubes deportivos>" as core.Jugador {
+    Jugador
+    ..
+    Los jugadores son personas que practican un deporte
+    --
+    - id_jugador (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    + num_federado (CharField) - 
+    ~ id_tipo_lateralidad (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Jugador -up- core.Persona
+core.Jugador -up- core.TipoLateralidad
+
+class "core.Equipo <Clubes deportivos>" as core.Equipo {
+    Equipo
+    ..
+    Los equipos son conjuntos de N jugadores y 0-2 técnicos
+    --
+    - id_equipo (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_tecnico_primero (ForeignKey) - 
+    ~ id_tecnico_segundo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Equipo -up- core.Club
+core.Equipo -up- core.Tecnico
+core.Equipo -up- core.Tecnico
+
+class "core.Pareja <Clubes deportivos>" as core.Pareja {
+    Pareja
+    ..
+    Las parejas son conjuntos de dos jugadores
+    --
+    - id_pareja (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_jugador_izquierdo (ForeignKey) - 
+    ~ id_jugador_derecho (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Pareja -up- core.Club
+core.Pareja -up- core.Jugador
+core.Pareja -up- core.Jugador
+
+class "core.ClaseJugador <Clubes deportivos>" as core.ClaseJugador {
+    Asistencia a clase
+    ..
+    Asistencia a clase de un jugador matriculado en un curso
+    --
+    - id_clase_jugador (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    + fecha_hora (DateTimeField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.ClaseJugador -up- core.Jugador
+core.ClaseJugador -up- core.Pista
+core.ClaseJugador -up- core.Curso
+
+class "core.ClaseProfesor <Clubes deportivos>" as core.ClaseProfesor {
+    Impartición de clase
+    ..
+    Impartición de clase por un profesor en el marco de un curso
+    --
+    - id_clase_profesor (AutoField) - 
+    ~ id_profesor (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    ~ id_estado_clase (ForeignKey) - 
+    + fecha_hora (DateTimeField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.ClaseProfesor -up- core.Tecnico
+core.ClaseProfesor -up- core.Curso
+core.ClaseProfesor -up- core.EstadoClase
+
+class "core.Curso <Clubes deportivos>" as core.Curso {
+    Curso impartido
+    ..
+    Cursos impartidos
+    --
+    - id_curso (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_profesor (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_tipo_curso (ForeignKey) - 
+    + curso_inicio (DateField) - 
+    + curso_fin (DateField) - 
+    + matricula_inicio (DateField) - 
+    + matricula_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Curso -up- core.Club
+core.Curso -up- core.Tecnico
+core.Curso -up- core.Instalacion
+core.Curso -up- core.Categoria
+core.Curso -up- core.TipoCurso
+
+class "core.MatriculaJugador <Clubes deportivos>" as core.MatriculaJugador {
+    Matrícula [jugador-curso]
+    ..
+    Matriculaciones individuales a cursos
+    --
+    - id_matricula_jugador (AutoField) - 
+    ~ id_curso (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.MatriculaJugador -up- core.Curso
+core.MatriculaJugador -up- core.Jugador
+
+class "core.PartidoDobles <Clubes deportivos>" as core.PartidoDobles {
+    Partido de dobles
+    ..
+    Partidos de dobles sueltos o de torneo, y sus resultados
+    --
+    - id_partido_dobles (AutoField) - 
+    ~ id_pareja_local (ForeignKey) - 
+    ~ id_pareja_visitante (ForeignKey) - 
+    + token_qr (CharField) - 
+    + token_qr_confirmacion (CharField) - 
+    ~ id_estado_partido (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + fecha_hora (DateTimeField) - 
+    + tods_formato (CharField) - 
+    + tods_resultado (CharField) - 
+    ~ id_ganador (ForeignKey) - 
+    + comentarios (TextField) - 
+    --
+}
+core.PartidoDobles -left- core.Pareja
+core.PartidoDobles -left- core.Pareja
+core.PartidoDobles -up- core.EstadoPartido
+core.PartidoDobles -up- core.Pista
+core.PartidoDobles -up- core.TorneoDobles
+core.PartidoDobles -up- core.Pareja
+
+class "core.PartidoIndividual <Clubes deportivos>" as core.PartidoIndividual {
+    Partido individual
+    ..
+    Partidos individuales sueltos o de torneo, y sus resultados
+    --
+    - id_partido_individual (AutoField) - 
+    ~ id_jugador_local (ForeignKey) - 
+    ~ id_jugador_visitante (ForeignKey) - 
+    + token_qr (CharField) - 
+    + token_qr_confirmacion (CharField) - 
+    ~ id_estado_partido (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + fecha_hora (DateTimeField) - 
+    + tods_formato (CharField) - 
+    + tods_resultado (CharField) - 
+    ~ id_ganador (ForeignKey) - 
+    + comentarios (TextField) - 
+    --
+}
+core.PartidoIndividual -up- core.Jugador
+core.PartidoIndividual -up- core.Jugador
+core.PartidoIndividual -up- core.EstadoPartido
+core.PartidoIndividual -up- core.Pista
+core.PartidoIndividual -up- core.TorneoIndividual
+core.PartidoIndividual -up- core.Jugador
+
+@enduml

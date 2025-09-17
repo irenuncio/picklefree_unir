@@ -1,0 +1,195 @@
+@startuml picklefree_models_1_encuestas_jet_y_otros
+
+title Encuestas, Jet y otros
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype normal
+skinparam ClassBackgroundColor #LightCyan
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "djf_surveys.Survey <Encuestas>" as djf_surveys.Survey #f4d6e1 {
+    Encuesta
+    ..
+    Survey(id, created_at, updated_at, name, description, slug, editable, deletable,
+duplicate_entry, cycle_survey, private_response, can_anonymous_user,
+notification_to, success_page_content)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    + name (CharField) - 
+    + description (HTMLField) - 
+    + slug (SlugField) - 
+    + editable (BooleanField) - If False, user can't edit record.
+    + deletable (BooleanField) - If False, user can't delete record.
+    + duplicate_entry (BooleanField) - If True, user can resubmit.
+    + cycle_survey (BooleanField) - If True, success page returns to survey
+    + private_response (BooleanField) - If True, only admin and owner can access.
+    + can_anonymous_user (BooleanField) - If True, user without authentatication
+can submit.
+    + notification_to (TextField) - Enter your email to be notified when the form
+is submitted
+    + success_page_content (HTMLField) - 
+    --
+}
+
+
+class "djf_surveys.Question <Encuestas>" as djf_surveys.Question #f4d6e1 {
+    Pregunta
+    ..
+    Question(id, created_at, updated_at, key, survey, label, type_field, choices,
+help_text, required, ordering)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    + key (CharField) - Unique key for this question, fill in the blank if you want
+to use for automatic generation.
+    ~ survey (ForeignKey) - 
+    + label (CharField) - Enter your question in here.
+    + type_field (PositiveSmallIntegerField) - 
+    + choices (TextField) - If type of field is radio, select, or multi select,
+fill in the options separated by commas. Ex: Male, Female.
+    + help_text (CharField) - You can add a help text in here.
+    + required (BooleanField) - If True, the user must provide an answer to this
+question.
+    + ordering (PositiveIntegerField) - Defines the question order within the
+surveys.
+    --
+}
+djf_surveys.Question -up- djf_surveys.Survey
+
+
+class "djf_surveys.UserAnswer <Encuestas>" as djf_surveys.UserAnswer #f4d6e1 {
+    Encuesta ya respondida
+    ..
+    UserAnswer(id, created_at, updated_at, survey, user)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    ~ survey (ForeignKey) - 
+    ~ user (ForeignKey) - 
+    --
+}
+djf_surveys.UserAnswer -up- djf_surveys.Survey
+djf_surveys.UserAnswer -up- auth.User
+
+
+class "djf_surveys.Answer <Encuestas>" as djf_surveys.Answer #f4d6e1 {
+    Respuesta
+    ..
+    Answer(id, created_at, updated_at, question, value, user_answer)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    ~ question (ForeignKey) - 
+    + value (TextField) - The value of the answer given by the user.
+    ~ user_answer (ForeignKey) - 
+    --
+}
+djf_surveys.Answer -up- djf_surveys.Question
+djf_surveys.Answer -up- djf_surveys.UserAnswer
+
+
+class "djf_surveys.TermsValidators <Encuestas>" as djf_surveys.TermsValidators #f4d6e1 {
+    Validador personalizado
+    ..
+    TermsValidators(id, created_at, updated_at, question, terms)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    ~ question (OneToOneField) - 
+    + terms (JSONField) - 
+    --
+}
+djf_surveys.TermsValidators -up- djf_surveys.Question
+
+class "admin.LogEntry <Administración>" as admin.LogEntry #f4d6f1 {
+    entrada de registro
+    ..
+    LogEntry(id, action_time, user, content_type, object_id, object_repr,
+action_flag, change_message)
+    --
+    - id (AutoField) - 
+    + action_time (DateTimeField) - 
+    ~ user (ForeignKey) - 
+    ~ content_type (ForeignKey) - 
+    + object_id (TextField) - 
+    + object_repr (CharField) - 
+    + action_flag (PositiveSmallIntegerField) - 
+    + change_message (TextField) - 
+    --
+}
+admin.LogEntry -up- auth.User
+admin.LogEntry -up- contenttypes.ContentType
+
+class "contenttypes.ContentType <Tipos de contenido>" as contenttypes.ContentType #d6f4de {
+    tipo de contenido
+    ..
+    ContentType(id, app_label, model)
+    --
+    - id (AutoField) - 
+    + app_label (CharField) - 
+    + model (CharField) - 
+    --
+}
+
+class "sessions.Session <Sesiones>" as sessions.Session #f4e1d6 {
+    sesión
+    ..
+    Django provides full support for anonymous sessions. The session
+framework lets you store and retrieve arbitrary data on a
+per-site-visitor basis. It stores data on the server side and
+abstracts the sending and receiving of cookies. Cookies contain a
+session ID -- not the data itself.
+The Django sessions framework is entirely cookie-based. It does
+not fall back to putting session IDs in URLs. This is an intentional
+design decision. Not only does that behavior make URLs ugly, it makes
+your site vulnerable to session-ID theft via the "Referer" header.
+For complete documentation on using Sessions in your code, consult
+the sessions documentation that is shipped with Django (also available
+on the Django web site).
+    --
+    + session_key (CharField) - 
+    + session_data (TextField) - 
+    + expire_date (DateTimeField) - 
+    --
+}
+
+class "jet.Bookmark <Jet>" as jet.Bookmark #f4e8d6 {
+    marcador
+    ..
+    Bookmark(id, url, title, user, date_add)
+    --
+    + id (BigAutoField) - 
+    + url (URLField) - 
+    + title (CharField) - 
+    ~ user (ForeignKey) - 
+    + date_add (DateTimeField) - 
+    --
+}
+jet.Bookmark -- auth.User
+
+class "jet.PinnedApplication <Jet>" as jet.PinnedApplication #f4e8d6 {
+    aplicación anclada
+    ..
+    PinnedApplication(id, app_label, user, date_add)
+    --
+    + id (BigAutoField) - 
+    + app_label (CharField) - 
+    ~ user (ForeignKey) - 
+    + date_add (DateTimeField) - 
+    --
+}
+jet.PinnedApplication -up- auth.User
+
+@enduml

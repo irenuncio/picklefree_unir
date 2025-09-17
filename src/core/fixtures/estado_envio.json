@@ -1,0 +1,46 @@
+[
+{
+  "model": "core.estadoenvio",
+  "pk": 1,
+  "fields": {
+    "nombre": "Sin enviar",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoenvio",
+  "pk": 2,
+  "fields": {
+    "nombre": "Enviado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoenvio",
+  "pk": 3,
+  "fields": {
+    "nombre": "Reintento",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoenvio",
+  "pk": 4,
+  "fields": {
+    "nombre": "Fallido",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

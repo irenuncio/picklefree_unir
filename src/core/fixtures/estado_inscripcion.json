@@ -1,0 +1,35 @@
+[
+{
+  "model": "core.estadoinscripcion",
+  "pk": 1,
+  "fields": {
+    "nombre": "Inscrito",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoinscripcion",
+  "pk": 2,
+  "fields": {
+    "nombre": "Retirado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadoinscripcion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Descalificado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

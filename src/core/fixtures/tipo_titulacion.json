@@ -1,0 +1,101 @@
+[
+{
+  "model": "core.tipotitulacion",
+  "pk": 1,
+  "fields": {
+    "nombre": "Monitor Territorial",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 2,
+  "fields": {
+    "nombre": "Árbitro Territorial",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Monitor Nacional (Nivel 1)",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 4,
+  "fields": {
+    "nombre": "Entrenador Nacional (Nivel 2)",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 5,
+  "fields": {
+    "nombre": "Profesor Nacional (Nivel 3)",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 6,
+  "fields": {
+    "nombre": "Juez de Silla / Juez de Línea",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 7,
+  "fields": {
+    "nombre": "Juez Árbitro Nacional",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 8,
+  "fields": {
+    "nombre": "Juez Árbitro Internacional",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipotitulacion",
+  "pk": 9,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

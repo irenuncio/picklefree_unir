@@ -1,0 +1,57 @@
+[
+{
+  "model": "core.tipomembresia",
+  "pk": 1,
+  "fields": {
+    "nombre": "Jugador",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomembresia",
+  "pk": 2,
+  "fields": {
+    "nombre": "Capitán",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomembresia",
+  "pk": 3,
+  "fields": {
+    "nombre": "Segundo capitán",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomembresia",
+  "pk": 4,
+  "fields": {
+    "nombre": "Reserva",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipomembresia",
+  "pk": 5,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

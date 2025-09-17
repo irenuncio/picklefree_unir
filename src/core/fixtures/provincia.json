@@ -1,0 +1,410 @@
+[
+{
+  "model": "core.provincia",
+  "pk": 1,
+  "fields": {
+    "nombre": "Álava",
+    "codigo_ine": "01"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 2,
+  "fields": {
+    "nombre": "Albacete",
+    "codigo_ine": "02"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 3,
+  "fields": {
+    "nombre": "Alicante",
+    "codigo_ine": "03"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 4,
+  "fields": {
+    "nombre": "Almería",
+    "codigo_ine": "04"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 5,
+  "fields": {
+    "nombre": "Ávila",
+    "codigo_ine": "05"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 6,
+  "fields": {
+    "nombre": "Badajoz",
+    "codigo_ine": "06"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 7,
+  "fields": {
+    "nombre": "Baleares",
+    "codigo_ine": "07"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 8,
+  "fields": {
+    "nombre": "Barcelona",
+    "codigo_ine": "08"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 9,
+  "fields": {
+    "nombre": "Burgos",
+    "codigo_ine": "09"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 10,
+  "fields": {
+    "nombre": "Cáceres",
+    "codigo_ine": "10"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 11,
+  "fields": {
+    "nombre": "Cádiz",
+    "codigo_ine": "11"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 12,
+  "fields": {
+    "nombre": "Castellón",
+    "codigo_ine": "12"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 13,
+  "fields": {
+    "nombre": "Ciudad Real",
+    "codigo_ine": "13"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 14,
+  "fields": {
+    "nombre": "Córdoba",
+    "codigo_ine": "14"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 15,
+  "fields": {
+    "nombre": "La Coruña",
+    "codigo_ine": "15"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 16,
+  "fields": {
+    "nombre": "Cuenca",
+    "codigo_ine": "16"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 17,
+  "fields": {
+    "nombre": "Gerona",
+    "codigo_ine": "17"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 18,
+  "fields": {
+    "nombre": "Granada",
+    "codigo_ine": "18"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 19,
+  "fields": {
+    "nombre": "Guadalajara",
+    "codigo_ine": "19"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 20,
+  "fields": {
+    "nombre": "Guipúzcoa",
+    "codigo_ine": "20"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 21,
+  "fields": {
+    "nombre": "Huelva",
+    "codigo_ine": "21"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 22,
+  "fields": {
+    "nombre": "Huesca",
+    "codigo_ine": "22"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 23,
+  "fields": {
+    "nombre": "Jaén",
+    "codigo_ine": "23"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 24,
+  "fields": {
+    "nombre": "León",
+    "codigo_ine": "24"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 25,
+  "fields": {
+    "nombre": "Lérida",
+    "codigo_ine": "25"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 26,
+  "fields": {
+    "nombre": "Lugo",
+    "codigo_ine": "27"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 27,
+  "fields": {
+    "nombre": "Madrid",
+    "codigo_ine": "28"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 28,
+  "fields": {
+    "nombre": "Málaga",
+    "codigo_ine": "29"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 29,
+  "fields": {
+    "nombre": "Murcia",
+    "codigo_ine": "30"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 30,
+  "fields": {
+    "nombre": "Navarra",
+    "codigo_ine": "31"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 31,
+  "fields": {
+    "nombre": "Orense",
+    "codigo_ine": "32"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 32,
+  "fields": {
+    "nombre": "Asturias",
+    "codigo_ine": "33"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 33,
+  "fields": {
+    "nombre": "Palencia",
+    "codigo_ine": "34"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 34,
+  "fields": {
+    "nombre": "Las Palmas",
+    "codigo_ine": "35"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 35,
+  "fields": {
+    "nombre": "Pontevedra",
+    "codigo_ine": "36"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 36,
+  "fields": {
+    "nombre": "Salamanca",
+    "codigo_ine": "37"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 37,
+  "fields": {
+    "nombre": "Santa Cruz de Tenerife",
+    "codigo_ine": "38"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 38,
+  "fields": {
+    "nombre": "Cantabria",
+    "codigo_ine": "39"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 39,
+  "fields": {
+    "nombre": "Segovia",
+    "codigo_ine": "40"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 40,
+  "fields": {
+    "nombre": "Sevilla",
+    "codigo_ine": "41"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 41,
+  "fields": {
+    "nombre": "Soria",
+    "codigo_ine": "42"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 42,
+  "fields": {
+    "nombre": "Tarragona",
+    "codigo_ine": "43"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 43,
+  "fields": {
+    "nombre": "Teruel",
+    "codigo_ine": "44"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 44,
+  "fields": {
+    "nombre": "Toledo",
+    "codigo_ine": "45"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 45,
+  "fields": {
+    "nombre": "Valencia",
+    "codigo_ine": "46"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 46,
+  "fields": {
+    "nombre": "Valladolid",
+    "codigo_ine": "47"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 47,
+  "fields": {
+    "nombre": "Vizcaya",
+    "codigo_ine": "48"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 48,
+  "fields": {
+    "nombre": "Zamora",
+    "codigo_ine": "49"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 49,
+  "fields": {
+    "nombre": "Zaragoza",
+    "codigo_ine": "50"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 50,
+  "fields": {
+    "nombre": "Ceuta",
+    "codigo_ine": "51"
+  }
+},
+{
+  "model": "core.provincia",
+  "pk": 51,
+  "fields": {
+    "nombre": "Melilla",
+    "codigo_ine": "52"
+  }
+}
+]

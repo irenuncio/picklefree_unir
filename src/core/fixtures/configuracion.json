@@ -1,0 +1,17 @@
+[
+{
+  "model": "core.configuracion",
+  "pk": 1,
+  "fields": {
+    "id_club": null,
+    "puntos_victoria": 3,
+    "puntos_empate": 1,
+    "puntos_derrota": 0,
+    "token_qr_global": "dbdea5114a2aea0c960d0806264b5287",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activa": true,
+    "comentarios": "Configuración global por defecto"
+  }
+}
+]

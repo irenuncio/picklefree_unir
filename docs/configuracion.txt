@@ -1,0 +1,40 @@
+-------------
+CONFIGURACION
+-------------
+
+01)  Instalar Python (computer)
+02)  Instalar PostgreSQL (computer) (postgres user password: Desafio+Total1990)
+03)  Instalar git (computer)
+03)  Instalar VS Code (computer)
+04)  Crear carpeta picklefree con estructura de proyecto (md C:\RepositoriosGIT\Personal\picklefree)
+05)  Abrir un CMD e ir a dicha carpeta
+05)  Crear un entorno virtual para el proyecto (python -m venv venv)
+06)  Activar el entorno (entorno\Scripts\activate.bat)
+07)  Instalar los requisitos (pip install -r requirements.txt)
+08)  Crear subcarpeta para el código (md src y cd src)
+09)  Crear el proyecto en Django en la carpeta actual (django-admin startproject picklefree .)
+10)  Crear las aplicaciones en la carpeta del proyecto (python manage.py startapp core)
+11)  Agregamos la app core a Django-admin
+12)  Creamos el superusuario de Django (python manage.py createsuperuser)
+13)  Exportamos el DBML a PostgreSQL y lo ejecutamos en la BD picklefree como picklefree_owner
+14)  Obtenemos modelos (python manage.py inspectdb > core/models.py) y los editamos, limpiamos y completamos
+15)  Chequeamos su consistencia y corregimos los errores (python manage.py check)
+15)  Registramos modelos en admin.py para que aparezcan en la interfaz de administración
+16)  Borramos la bd picklefree y la recreamos (picklefree_create.bat)
+17)  Creamos las tablas originales de Django (python manage.py migrate)
+18)  Creamos el superusuario de Django (python manage.py createsuperuser)
+19)  Creamos las migraciones para nuestros modelos (python manage.py makemigrations)
+20)  Aplicamos a la BD nuestras migraciones (python manage.py migrate)
+21)  Arrancamos el servidor y rellenamos las 22 tablas auxiliares
+22)  Generamos los fixtures de dichas tablas (python manage.py dumpdata core.EstadoPartido --indent 2 > core/fixtures/estado_partido.json)
+23)  Vaciamos las tablas (python manage.py flush)
+24)  Creamos el superusuario de Django (python manage.py createsuperuser)
+25)  Cargamos los fixtures (python manage.py loaddata core/fixtures/*.json) con el script _picklefree_fixtures.bat
+26)  Borramos la bd picklefree y la recreamos (picklefree_create.bat)
+27)  Creamos las tablas originales de Django (python manage.py migrate)
+28)  Creamos el superusuario de Django (python manage.py createsuperuser)
+29)  Creamos las migraciones para nuestros modelos (python manage.py makemigrations)
+30)  Aplicamos a la BD nuestras migraciones (python manage.py migrate)
+31)  Cargamos los fixtures (python manage.py loaddata core/fixtures/*.json) con el script _picklefree_fixtures.bat
+32)  AUN NO: Generamos un archivo .po de traducciones (django-admin makemessages -l es)
+33)  Generamos los recursos estáticos con python manage.py collectstatic

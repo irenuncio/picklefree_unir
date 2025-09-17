@@ -1,0 +1,248 @@
+@startuml picklefree_models_4_mensajes
+
+title Mensajes
+
+left to right direction
+
+skinparam ArrowThickness 2
+skinparam DefaultFontName Verdana
+skinparam Linetype polyline
+skinparam ClassBackgroundColor #LightYellow
+skinparam TitleFontSize 36
+skinparam ClassFontSize 16
+skinparam Shadowing true
+
+' Modelos
+class "core.Envio <Clubes deportivos>" as core.Envio {
+    Envío de mensaje
+    ..
+    Envío de mensajes a personas
+    --
+    - id_envio (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    + token_qr (CharField) - 
+    + remitente (CharField) - 
+    + destinatario (CharField) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    ~ id_estado_envio (ForeignKey) - 
+    + fecha_hora (DateTimeField) - 
+    --
+}
+core.Envio -up- core.Mensaje
+core.Envio -up- core.TipoMensaje
+core.Envio -up- core.EstadoEnvio
+
+class "core.Mensaje <Clubes deportivos>" as core.Mensaje {
+    Mensaje
+    ..
+    Mensajes de un club
+    --
+    - id_mensaje (AutoField) - 
+    ~ id_remitente (ForeignKey) - 
+    + token_qr (CharField) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    + asunto (CharField) - 
+    + cuerpo (TextField) - 
+    + fecha_hora (DateTimeField) - 
+    + aplicacion_futura (BooleanField) - 
+    --
+}
+core.Mensaje -up- core.Club
+core.Mensaje -up- core.TipoMensaje
+
+class "core.DestinatarioClub <Clubes deportivos>" as core.DestinatarioClub {
+    Destinatario [club]
+    ..
+    Clubes destinatarios de un mensaje
+    --
+    - id_destinatario_club (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioClub -up- core.Mensaje
+core.DestinatarioClub -up- core.Club
+core.DestinatarioClub -up- core.TipoMensaje
+
+class "core.DestinatarioCurso <Clubes deportivos>" as core.DestinatarioCurso {
+    Destinatario [curso]
+    ..
+    Cursos destinatarios de un mensaje
+    --
+    - id_destinatario_curso (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioCurso -up- core.Mensaje
+core.DestinatarioCurso -up- core.Curso
+core.DestinatarioCurso -up- core.TipoMensaje
+
+class "core.DestinatarioDirectivo <Clubes deportivos>" as core.DestinatarioDirectivo {
+    Destinatario [directivo]
+    ..
+    Directivos destinatarios de un mensaje
+    --
+    - id_destinatario_directivo (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_directivo (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioDirectivo -up- core.Mensaje
+core.DestinatarioDirectivo -up- core.Directivo
+core.DestinatarioDirectivo -up- core.TipoMensaje
+
+class "core.DestinatarioEquipo <Clubes deportivos>" as core.DestinatarioEquipo {
+    Destinatario [equipo]
+    ..
+    Equipos destinatarios de un mensaje
+    --
+    - id_destinatario_equipo (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioEquipo -up- core.Mensaje
+core.DestinatarioEquipo -up- core.Equipo
+core.DestinatarioEquipo -up- core.TipoMensaje
+
+class "core.DestinatarioInstalacion <Clubes deportivos>" as core.DestinatarioInstalacion {
+    Destinatario [instalación]
+    ..
+    Instalaciones destinatarias de un mensaje
+    --
+    - id_destinatario_instalacion (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioInstalacion -up- core.Mensaje
+core.DestinatarioInstalacion -up- core.Instalacion
+core.DestinatarioInstalacion -up- core.TipoMensaje
+
+class "core.DestinatarioJugador <Clubes deportivos>" as core.DestinatarioJugador {
+    Destinatario [jugador]
+    ..
+    Jugadores destinatarios de un mensaje
+    --
+    - id_destinatario_jugador (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioJugador -up- core.Mensaje
+core.DestinatarioJugador -up- core.Jugador
+core.DestinatarioJugador -up- core.TipoMensaje
+
+class "core.DestinatarioOperario <Clubes deportivos>" as core.DestinatarioOperario {
+    Destinatario [operario]
+    ..
+    Operarios destinatarios de un mensaje
+    --
+    - id_destinatario_operario (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_operario (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioOperario -up- core.Mensaje
+core.DestinatarioOperario -up- core.Operario
+core.DestinatarioOperario -up- core.TipoMensaje
+
+class "core.DestinatarioPareja <Clubes deportivos>" as core.DestinatarioPareja {
+    Destinatario [pareja]
+    ..
+    Parejas destinatarias de un mensaje
+    --
+    - id_destinatario_pareja (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_pareja (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioPareja -up- core.Mensaje
+core.DestinatarioPareja -up- core.Pareja
+core.DestinatarioPareja -up- core.TipoMensaje
+
+class "core.DestinatarioPista <Clubes deportivos>" as core.DestinatarioPista {
+    Destinatario [pista]
+    ..
+    Pistas destinatarias de un mensaje
+    --
+    - id_destinatario_pista (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioPista -up- core.Mensaje
+core.DestinatarioPista -up- core.Pista
+core.DestinatarioPista -up- core.TipoMensaje
+
+class "core.DestinatarioTecnico <Clubes deportivos>" as core.DestinatarioTecnico {
+    Destinatario [técnico]
+    ..
+    Técnicos destinatarios de un mensaje
+    --
+    - id_destinatario_tecnico (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_tecnico (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTecnico -up- core.Mensaje
+core.DestinatarioTecnico -up- core.Tecnico
+core.DestinatarioTecnico -up- core.TipoMensaje
+
+class "core.DestinatarioTorneoDobles <Clubes deportivos>" as core.DestinatarioTorneoDobles {
+    Destinatario [torneo dobles]
+    ..
+    Torneos de dobles destinatarios de un mensaje
+    --
+    - id_destinatario_torneo_dobles (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTorneoDobles -up- core.Mensaje
+core.DestinatarioTorneoDobles -up- core.TorneoDobles
+core.DestinatarioTorneoDobles -up- core.TipoMensaje
+
+class "core.DestinatarioTorneoEquipos <Clubes deportivos>" as core.DestinatarioTorneoEquipos {
+    Destinatario [torneo equipos]
+    ..
+    Torneos por equipos destinatarios de un mensaje
+    --
+    - id_destinatario_torneo_equipos (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_torneo_equipos (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTorneoEquipos -up- core.Mensaje
+core.DestinatarioTorneoEquipos -up- core.TorneoEquipos
+core.DestinatarioTorneoEquipos -up- core.TipoMensaje
+
+class "core.DestinatarioTorneoIndividual <Clubes deportivos>" as core.DestinatarioTorneoIndividual {
+    Destinatario [torneo individual]
+    ..
+    Torneos individuales destinatarios de un mensaje
+    --
+    - id_destinatario_torneo_individual (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTorneoIndividual -up- core.Mensaje
+core.DestinatarioTorneoIndividual -up- core.TorneoIndividual
+core.DestinatarioTorneoIndividual -up- core.TipoMensaje
+
+@enduml

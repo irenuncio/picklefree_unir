@@ -1,0 +1,90 @@
+[
+{
+  "model": "core.tiposuelo",
+  "pk": 1,
+  "fields": {
+    "nombre": "Hierba",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 2,
+  "fields": {
+    "nombre": "Tierra batida",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 3,
+  "fields": {
+    "nombre": "Cemento",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 4,
+  "fields": {
+    "nombre": "Asfalto",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 5,
+  "fields": {
+    "nombre": "Tartán",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 6,
+  "fields": {
+    "nombre": "Parquet",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 7,
+  "fields": {
+    "nombre": "Vinilo",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tiposuelo",
+  "pk": 8,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

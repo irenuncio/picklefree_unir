@@ -1,0 +1,46 @@
+[
+{
+  "model": "core.estadopartido",
+  "pk": 1,
+  "fields": {
+    "nombre": "Por jugar",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadopartido",
+  "pk": 2,
+  "fields": {
+    "nombre": "Jugado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadopartido",
+  "pk": 3,
+  "fields": {
+    "nombre": "Aplazado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.estadopartido",
+  "pk": 4,
+  "fields": {
+    "nombre": "Cancelado",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

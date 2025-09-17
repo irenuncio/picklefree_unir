@@ -1,0 +1,68 @@
+[
+{
+  "model": "core.tipocontrato",
+  "pk": 1,
+  "fields": {
+    "nombre": "Primer entrenador",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocontrato",
+  "pk": 2,
+  "fields": {
+    "nombre": "Segundo entrenador",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocontrato",
+  "pk": 3,
+  "fields": {
+    "nombre": "Preparador físico",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocontrato",
+  "pk": 4,
+  "fields": {
+    "nombre": "Profesor",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocontrato",
+  "pk": 5,
+  "fields": {
+    "nombre": "Monitor",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipocontrato",
+  "pk": 6,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]

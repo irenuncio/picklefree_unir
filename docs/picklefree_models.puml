@@ -1,0 +1,2118 @@
+@startuml picklefree_models
+
+left to right direction
+
+' Propiedades generales del diagrama
+skinparam Linetype normal
+
+' Modelos
+class "Explanation of the symbols used" as DESCRIPTION #FFF {
+    - AutoField (identifiers)
+    ..
+    + Regular field (anything)
+    ..
+    # ForeignKey (ManyToMany)
+    ..
+    ~ ForeignKey (OneToOne, OneToMany)
+    --
+}
+
+
+class "jet.Bookmark <Jet>" as jet.Bookmark #f4e8d6 {
+    marcador
+    ..
+    Bookmark(id, url, title, user, date_add)
+    --
+    + id (BigAutoField) - 
+    + url (URLField) - 
+    + title (CharField) - 
+    ~ user (ForeignKey) - 
+    + date_add (DateTimeField) - 
+    --
+}
+jet.Bookmark -up- auth.User
+
+
+class "jet.PinnedApplication <Jet>" as jet.PinnedApplication #f4e8d6 {
+    aplicación anclada
+    ..
+    PinnedApplication(id, app_label, user, date_add)
+    --
+    + id (BigAutoField) - 
+    + app_label (CharField) - 
+    ~ user (ForeignKey) - 
+    + date_add (DateTimeField) - 
+    --
+}
+jet.PinnedApplication -up- auth.User
+
+
+class "admin.LogEntry <Administración>" as admin.LogEntry #f4d6f1 {
+    entrada de registro
+    ..
+    LogEntry(id, action_time, user, content_type, object_id, object_repr,
+action_flag, change_message)
+    --
+    - id (AutoField) - 
+    + action_time (DateTimeField) - 
+    ~ user (ForeignKey) - 
+    ~ content_type (ForeignKey) - 
+    + object_id (TextField) - 
+    + object_repr (CharField) - 
+    + action_flag (PositiveSmallIntegerField) - 
+    + change_message (TextField) - 
+    --
+}
+admin.LogEntry -up- auth.User
+admin.LogEntry -up- contenttypes.ContentType
+
+
+class "auth.Permission <Autenticación y autorización>" as auth.Permission #e8f4d6 {
+    permiso
+    ..
+    The permissions system provides a way to assign permissions to specific
+users and groups of users.
+The permission system is used by the Django admin site, but may also be
+useful in your own code. The Django admin site uses permissions as follows:
+    - The "add" permission limits the user's ability to view the "add" form
+      and add an object.
+    - The "change" permission limits a user's ability to view the change
+      list, view the "change" form and change an object.
+    - The "delete" permission limits the ability to delete an object.
+    - The "view" permission limits the ability to view an object.
+Permissions are set globally per type of object, not per specific object
+instance. It is possible to say "Mary may change news stories," but it's
+not currently possible to say "Mary may change news stories, but only the
+ones she created herself" or "Mary may only change news stories that have a
+certain status or publication date."
+The permissions listed above are automatically created for each model.
+    --
+    - id (AutoField) - 
+    + name (CharField) - 
+    ~ content_type (ForeignKey) - 
+    + codename (CharField) - 
+    --
+}
+auth.Permission -up- contenttypes.ContentType
+
+
+class "auth.Group <Autenticación y autorización>" as auth.Group #e8f4d6 {
+    grupo
+    ..
+    Groups are a generic way of categorizing users to apply permissions, or
+some other label, to those users. A user can belong to any number of
+groups.
+A user in a group automatically has all the permissions granted to that
+group. For example, if the group 'Site editors' has the permission
+can_edit_home_page, any user in that group will have that permission.
+Beyond permissions, groups are a convenient way to categorize users to
+apply some label, or extended functionality, to them. For example, you
+could create a group 'Special users', and you could write code that would
+do special things to those users -- such as giving them access to a
+members-only portion of your site, or sending them members-only email
+messages.
+    --
+    - id (AutoField) - 
+    + name (CharField) - 
+    # permissions (ManyToManyField) - 
+    --
+}
+auth.Group *-up-* auth.Permission
+
+
+class "auth.User <Autenticación y autorización>" as auth.User #e8f4d6 {
+    usuario
+    ..
+    Users within the Django authentication system are represented by this
+model.
+Username and password are required. Other fields are optional.
+    --
+    - id (AutoField) - 
+    + password (CharField) - 
+    + last_login (DateTimeField) - 
+    + is_superuser (BooleanField) - Indica que este usuario tiene todos los
+permisos sin asignárselos explícitamente.
+    + username (CharField) - Requerido. 150 carácteres como máximo. Únicamente
+letras, dígitos y @/./+/-/_
+    + first_name (CharField) - 
+    + last_name (CharField) - 
+    + email (EmailField) - 
+    + is_staff (BooleanField) - Indica si el usuario puede entrar en este sitio de
+administración.
+    + is_active (BooleanField) - Indica si el usuario debe ser tratado como activo.
+Desmarque esta opción en lugar de borrar la cuenta.
+    + date_joined (DateTimeField) - 
+    # groups (ManyToManyField) - Los grupos a los que pertenece este usuario. Un
+usuario tendrá todos los permisos asignados a cada uno de sus grupos.
+    # user_permissions (ManyToManyField) - Permisos específicos para este usuario.
+    --
+}
+auth.User *-up-* auth.Group
+auth.User *-up-* auth.Permission
+
+
+class "contenttypes.ContentType <Tipos de contenido>" as contenttypes.ContentType #d6f4de {
+    tipo de contenido
+    ..
+    ContentType(id, app_label, model)
+    --
+    - id (AutoField) - 
+    + app_label (CharField) - 
+    + model (CharField) - 
+    --
+}
+
+
+class "sessions.Session <Sesiones>" as sessions.Session #f4e1d6 {
+    sesión
+    ..
+    Django provides full support for anonymous sessions. The session
+framework lets you store and retrieve arbitrary data on a
+per-site-visitor basis. It stores data on the server side and
+abstracts the sending and receiving of cookies. Cookies contain a
+session ID -- not the data itself.
+The Django sessions framework is entirely cookie-based. It does
+not fall back to putting session IDs in URLs. This is an intentional
+design decision. Not only does that behavior make URLs ugly, it makes
+your site vulnerable to session-ID theft via the "Referer" header.
+For complete documentation on using Sessions in your code, consult
+the sessions documentation that is shipped with Django (also available
+on the Django web site).
+    --
+    + session_key (CharField) - 
+    + session_data (TextField) - 
+    + expire_date (DateTimeField) - 
+    --
+}
+
+
+class "guardian.UserObjectPermission <Guardian>" as guardian.UserObjectPermission #e6f4d6 {
+    user object permission
+    ..
+    The default implementation of the UserObjectPermissionAbstract model.
+If `GUARDIAN_USER_OBJ_PERMS_MODEL` is not set at the beginning of the project,
+this model will be used.
+Uses Django's contenttypes framework to store generic relations.
+See Also:
+    - [Django's Documentation on Abstract Base
+Models](https://docs.djangoproject.com/en/stable/topics/db/models/#abstract-
+base-classes)
+    - [Django-Guardian Performance Tuning](https://django-
+guardian.readthedocs.io/en/stable/userguide/performance.html)
+    - [How to override the default UserObjectPermission](https://django-
+guardian.readthedocs.io/en/stable/configuration.html#guardian-user-obj-perms-
+model)
+    --
+    - id (AutoField) - 
+    ~ permission (ForeignKey) - 
+    ~ content_type (ForeignKey) - 
+    + object_pk (CharField) - 
+    ~ user (ForeignKey) - 
+    --
+}
+guardian.UserObjectPermission -up- auth.Permission
+guardian.UserObjectPermission -up- contenttypes.ContentType
+guardian.UserObjectPermission -up- auth.User
+
+
+class "guardian.GroupObjectPermission <Guardian>" as guardian.GroupObjectPermission #e6f4d6 {
+    group object permission
+    ..
+    The default implementation of the GroupObjectPermissionAbstract model.
+If `GUARDIAN_GROUP_OBJ_PERMS_MODEL` is not set at the beginning of the project,
+this model will be used.
+Uses Django's contenttypes framework to store generic relations.
+See Also:
+    - [Django's Documentation on Abstract Base
+Models](https://docs.djangoproject.com/en/stable/topics/db/models/#abstract-
+base-classes)
+    - [Django-Guardian Performance Tuning](https://django-
+guardian.readthedocs.io/en/stable/userguide/performance.html)
+    - [How to override the default GroupObjectPermission](https://django-
+guardian.readthedocs.io/en/stable/configuration.html#guardian-user-obj-perms-
+model)
+    --
+    - id (AutoField) - 
+    ~ permission (ForeignKey) - 
+    ~ content_type (ForeignKey) - 
+    + object_pk (CharField) - 
+    ~ group (ForeignKey) - 
+    --
+}
+guardian.GroupObjectPermission -up- auth.Permission
+guardian.GroupObjectPermission -up- contenttypes.ContentType
+guardian.GroupObjectPermission -up- auth.Group
+
+
+class "core.CalendarioClub <Clubes deportivos>" as core.CalendarioClub #e8f4d6 {
+    Calendario de club deportivo
+    ..
+    Calendario de un club determinado (cierres prioritarios sobre las aperturas)
+    --
+    - id_calendario_club (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    + fecha_inicio (DateField) - 
+    + fecha_fin (DateField) - 
+    ~ id_tipo_calendario (ForeignKey) - 
+    ~ id_horario_club (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CalendarioClub -up- core.Club
+core.CalendarioClub -up- core.TipoCalendario
+core.CalendarioClub -up- core.HorarioClub
+
+
+class "core.CalendarioInstalacion <Clubes deportivos>" as core.CalendarioInstalacion #e8f4d6 {
+    Calendario de instalación deportiva
+    ..
+    Calendario global o de club para una instalación dada (cierres prioritarios
+sobre las aperturas)
+    --
+    - id_calendario_instalacion (AutoField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    + fecha_inicio (DateField) - 
+    + fecha_fin (DateField) - 
+    ~ id_tipo_calendario (ForeignKey) - 
+    ~ id_horario_instalacion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CalendarioInstalacion -up- core.Instalacion
+core.CalendarioInstalacion -up- core.Club
+core.CalendarioInstalacion -up- core.TipoCalendario
+core.CalendarioInstalacion -up- core.HorarioInstalacion
+
+
+class "core.CalendarioPista <Clubes deportivos>" as core.CalendarioPista #e8f4d6 {
+    Calendario de pista
+    ..
+    Calendario de una pista dada (cierres prioritarios sobre las aperturas)
+    --
+    - id_calendario_pista (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    + nombre (CharField) - 
+    + fecha_inicio (DateField) - 
+    + fecha_fin (DateField) - 
+    ~ id_tipo_calendario (ForeignKey) - 
+    ~ id_horario_pista (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CalendarioPista -up- core.Pista
+core.CalendarioPista -up- core.TipoCalendario
+core.CalendarioPista -up- core.HorarioPista
+
+
+class "core.Categoria <Clubes deportivos>" as core.Categoria #e8f4d6 {
+    Categoría de club
+    ..
+    Categorías globales o de club para jugadores, parejas y equipos
+    --
+    - id_categoria (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    + condicion_minedad (IntegerField) - 
+    + condicion_maxedad (IntegerField) - 
+    ~ id_tipo_sexo (ForeignKey) - 
+    + condicion_minrating (DecimalField) - 
+    + condicion_maxrating (DecimalField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Categoria -up- core.Club
+core.Categoria -up- core.TipoSexo
+
+
+class "core.CategoriaEquipo <Clubes deportivos>" as core.CategoriaEquipo #e8f4d6 {
+    Categoría de equipo
+    ..
+    Tabla de combinación N:M categoría-equipo
+    --
+    - id_categoria_equipo (AutoField) - 
+    ~ id_categoria (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CategoriaEquipo -up- core.Categoria
+core.CategoriaEquipo -up- core.Equipo
+
+
+class "core.CategoriaJugador <Clubes deportivos>" as core.CategoriaJugador #e8f4d6 {
+    Categoría de jugador
+    ..
+    Tabla de combinación N:M categoría-jugador
+    --
+    - id_categoria_jugador (AutoField) - 
+    ~ id_categoria (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CategoriaJugador -up- core.Categoria
+core.CategoriaJugador -up- core.Jugador
+
+
+class "core.CategoriaPareja <Clubes deportivos>" as core.CategoriaPareja #e8f4d6 {
+    Categoría de pareja
+    ..
+    Tabla de combinación N:M categoría-pareja
+    --
+    - id_categoria_pareja (AutoField) - 
+    ~ id_categoria (ForeignKey) - 
+    ~ id_pareja (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.CategoriaPareja -up- core.Categoria
+core.CategoriaPareja -up- core.Pareja
+
+
+class "core.ClaseJugador <Clubes deportivos>" as core.ClaseJugador #e8f4d6 {
+    Asistencia a clase
+    ..
+    Asistencia a clase de un jugador matriculado en un curso
+    --
+    - id_clase_jugador (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    + fecha_hora (DateTimeField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.ClaseJugador -up- core.Jugador
+core.ClaseJugador -up- core.Pista
+core.ClaseJugador -up- core.Curso
+
+
+class "core.ClaseProfesor <Clubes deportivos>" as core.ClaseProfesor #e8f4d6 {
+    Impartición de clase
+    ..
+    Impartición de clase por un profesor en el marco de un curso
+    --
+    - id_clase_profesor (AutoField) - 
+    ~ id_profesor (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    ~ id_estado_clase (ForeignKey) - 
+    + fecha_hora (DateTimeField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.ClaseProfesor -up- core.Tecnico
+core.ClaseProfesor -up- core.Curso
+core.ClaseProfesor -up- core.EstadoClase
+
+
+class "core.Club <Clubes deportivos>" as core.Club #e8f4d6 {
+    Club deportivo
+    ..
+    Un club deportivo, con o sin instalaciones propias
+    --
+    - id_club (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + direccion_calle_num (CharField) - 
+    + direccion_localidad (CharField) - 
+    + direccion_codigopostal (CharField) - 
+    ~ direccion_provincia (ForeignKey) - 
+    + direccion_pais (CountryField) - 
+    + telefono_fijo (PhoneNumberField) - 
+    + telefono_movil (PhoneNumberField) - 
+    + telefono_otro (PhoneNumberField) - 
+    + email (EmailField) - 
+    + email_adicional (EmailField) - 
+    + sitio_web (URLField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Club -up- core.Provincia
+
+
+class "core.Configuracion <Clubes deportivos>" as core.Configuracion #e8f4d6 {
+    Configuración de club
+    ..
+    Configuraciones globales o a nivel de club
+    --
+    - id_configuracion (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + puntos_victoria (IntegerField) - 
+    + puntos_empate (IntegerField) - 
+    + puntos_derrota (IntegerField) - 
+    + token_qr_global (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Configuracion -up- core.Club
+
+
+class "core.Contrato <Clubes deportivos>" as core.Contrato #e8f4d6 {
+    Contrato [técnico-club]
+    ..
+    Contrato: Tabla de combinación N:M técnico-club
+    --
+    - id_contrato (AutoField) - 
+    ~ id_tecnico (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_contrato (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Contrato -up- core.Tecnico
+core.Contrato -up- core.Club
+core.Contrato -up- core.TipoContrato
+
+
+class "core.Curso <Clubes deportivos>" as core.Curso #e8f4d6 {
+    Curso impartido
+    ..
+    Cursos impartidos
+    --
+    - id_curso (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_profesor (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_tipo_curso (ForeignKey) - 
+    + curso_inicio (DateField) - 
+    + curso_fin (DateField) - 
+    + matricula_inicio (DateField) - 
+    + matricula_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Curso -up- core.Club
+core.Curso -up- core.Tecnico
+core.Curso -up- core.Instalacion
+core.Curso -up- core.Categoria
+core.Curso -up- core.TipoCurso
+
+
+class "core.Dependencia <Clubes deportivos>" as core.Dependencia #e8f4d6 {
+    Dependencia de instalación deportiva
+    ..
+    Cada lugar de una instalación para otros propósitos
+    --
+    - id_dependencia (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_dependencia (ForeignKey) - 
+    + tiene_llave (BooleanField) - 
+    + dimensiones_longitud (DecimalField) - 
+    + dimensiones_archura (DecimalField) - 
+    + dimensiones_altura (DecimalField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Dependencia -up- core.Instalacion
+core.Dependencia -up- core.TipoDependencia
+
+
+class "core.DestinatarioClub <Clubes deportivos>" as core.DestinatarioClub #e8f4d6 {
+    Destinatario [club]
+    ..
+    Clubes destinatarios de un mensaje
+    --
+    - id_destinatario_club (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioClub -up- core.Mensaje
+core.DestinatarioClub -up- core.Club
+core.DestinatarioClub -up- core.TipoMensaje
+
+
+class "core.DestinatarioCurso <Clubes deportivos>" as core.DestinatarioCurso #e8f4d6 {
+    Destinatario [curso]
+    ..
+    Cursos destinatarios de un mensaje
+    --
+    - id_destinatario_curso (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioCurso -up- core.Mensaje
+core.DestinatarioCurso -up- core.Curso
+core.DestinatarioCurso -up- core.TipoMensaje
+
+
+class "core.DestinatarioDirectivo <Clubes deportivos>" as core.DestinatarioDirectivo #e8f4d6 {
+    Destinatario [directivo]
+    ..
+    Directivos destinatarios de un mensaje
+    --
+    - id_destinatario_directivo (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_directivo (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioDirectivo -up- core.Mensaje
+core.DestinatarioDirectivo -up- core.Directivo
+core.DestinatarioDirectivo -up- core.TipoMensaje
+
+
+class "core.DestinatarioEquipo <Clubes deportivos>" as core.DestinatarioEquipo #e8f4d6 {
+    Destinatario [equipo]
+    ..
+    Equipos destinatarios de un mensaje
+    --
+    - id_destinatario_equipo (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioEquipo -up- core.Mensaje
+core.DestinatarioEquipo -up- core.Equipo
+core.DestinatarioEquipo -up- core.TipoMensaje
+
+
+class "core.DestinatarioInstalacion <Clubes deportivos>" as core.DestinatarioInstalacion #e8f4d6 {
+    Destinatario [instalación]
+    ..
+    Instalaciones destinatarias de un mensaje
+    --
+    - id_destinatario_instalacion (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioInstalacion -up- core.Mensaje
+core.DestinatarioInstalacion -up- core.Instalacion
+core.DestinatarioInstalacion -up- core.TipoMensaje
+
+
+class "core.DestinatarioJugador <Clubes deportivos>" as core.DestinatarioJugador #e8f4d6 {
+    Destinatario [jugador]
+    ..
+    Jugadores destinatarios de un mensaje
+    --
+    - id_destinatario_jugador (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioJugador -up- core.Mensaje
+core.DestinatarioJugador -up- core.Jugador
+core.DestinatarioJugador -up- core.TipoMensaje
+
+
+class "core.DestinatarioOperario <Clubes deportivos>" as core.DestinatarioOperario #e8f4d6 {
+    Destinatario [operario]
+    ..
+    Operarios destinatarios de un mensaje
+    --
+    - id_destinatario_operario (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_operario (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioOperario -up- core.Mensaje
+core.DestinatarioOperario -up- core.Operario
+core.DestinatarioOperario -up- core.TipoMensaje
+
+
+class "core.DestinatarioPareja <Clubes deportivos>" as core.DestinatarioPareja #e8f4d6 {
+    Destinatario [pareja]
+    ..
+    Parejas destinatarias de un mensaje
+    --
+    - id_destinatario_pareja (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_pareja (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioPareja -up- core.Mensaje
+core.DestinatarioPareja -up- core.Pareja
+core.DestinatarioPareja -up- core.TipoMensaje
+
+
+class "core.DestinatarioPista <Clubes deportivos>" as core.DestinatarioPista #e8f4d6 {
+    Destinatario [pista]
+    ..
+    Pistas destinatarias de un mensaje
+    --
+    - id_destinatario_pista (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioPista -up- core.Mensaje
+core.DestinatarioPista -up- core.Pista
+core.DestinatarioPista -up- core.TipoMensaje
+
+
+class "core.DestinatarioTecnico <Clubes deportivos>" as core.DestinatarioTecnico #e8f4d6 {
+    Destinatario [técnico]
+    ..
+    Técnicos destinatarios de un mensaje
+    --
+    - id_destinatario_tecnico (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_tecnico (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTecnico -up- core.Mensaje
+core.DestinatarioTecnico -up- core.Tecnico
+core.DestinatarioTecnico -up- core.TipoMensaje
+
+
+class "core.DestinatarioTorneoDobles <Clubes deportivos>" as core.DestinatarioTorneoDobles #e8f4d6 {
+    Destinatario [torneo dobles]
+    ..
+    Torneos de dobles destinatarios de un mensaje
+    --
+    - id_destinatario_torneo_dobles (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTorneoDobles -up- core.Mensaje
+core.DestinatarioTorneoDobles -up- core.TorneoDobles
+core.DestinatarioTorneoDobles -up- core.TipoMensaje
+
+
+class "core.DestinatarioTorneoEquipos <Clubes deportivos>" as core.DestinatarioTorneoEquipos #e8f4d6 {
+    Destinatario [torneo equipos]
+    ..
+    Torneos por equipos destinatarios de un mensaje
+    --
+    - id_destinatario_torneo_equipos (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_torneo_equipos (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTorneoEquipos -up- core.Mensaje
+core.DestinatarioTorneoEquipos -up- core.TorneoEquipos
+core.DestinatarioTorneoEquipos -up- core.TipoMensaje
+
+
+class "core.DestinatarioTorneoIndividual <Clubes deportivos>" as core.DestinatarioTorneoIndividual #e8f4d6 {
+    Destinatario [torneo individual]
+    ..
+    Torneos individuales destinatarios de un mensaje
+    --
+    - id_destinatario_torneo_individual (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    --
+}
+core.DestinatarioTorneoIndividual -up- core.Mensaje
+core.DestinatarioTorneoIndividual -up- core.TorneoIndividual
+core.DestinatarioTorneoIndividual -up- core.TipoMensaje
+
+
+class "core.Directivo <Clubes deportivos>" as core.Directivo #e8f4d6 {
+    Directivo de club
+    ..
+    Los directivos son personas con un cargo en un club
+    --
+    - id_directivo (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    + curriculum (FileField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Directivo -up- core.Persona
+
+
+class "core.Envio <Clubes deportivos>" as core.Envio #e8f4d6 {
+    Envío de mensaje
+    ..
+    Envío de mensajes a personas
+    --
+    - id_envio (AutoField) - 
+    ~ id_mensaje (ForeignKey) - 
+    + token_qr (CharField) - 
+    + remitente (CharField) - 
+    + destinatario (CharField) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    ~ id_estado_envio (ForeignKey) - 
+    + fecha_hora (DateTimeField) - 
+    --
+}
+core.Envio -up- core.Mensaje
+core.Envio -up- core.TipoMensaje
+core.Envio -up- core.EstadoEnvio
+
+
+class "core.Equipo <Clubes deportivos>" as core.Equipo #e8f4d6 {
+    Equipo
+    ..
+    Los equipos son conjuntos de N jugadores y 0-2 técnicos
+    --
+    - id_equipo (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_tecnico_primero (ForeignKey) - 
+    ~ id_tecnico_segundo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Equipo -up- core.Club
+core.Equipo -up- core.Tecnico
+core.Equipo -up- core.Tecnico
+
+
+class "core.Etapa <Clubes deportivos>" as core.Etapa #e8f4d6 {
+    Etapa [técnico-equipo]
+    ..
+    Etapa: Tabla de combinación N:M técnico-equipo
+    --
+    - id_etapa (AutoField) - 
+    ~ id_tecnico (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    ~ id_tipo_tecnico_ejercido (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Etapa -up- core.Tecnico
+core.Etapa -up- core.Equipo
+core.Etapa -up- core.Tecnico
+
+
+class "core.HorarioClub <Clubes deportivos>" as core.HorarioClub #e8f4d6 {
+    Horario de club
+    ..
+    Horarios de un club determinado
+    --
+    - id_horario_club (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    ~ id_tipo_diasemanal (ForeignKey) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.HorarioClub -up- core.Club
+core.HorarioClub -up- core.TipoDiasemanal
+
+
+class "core.HorarioInstalacion <Clubes deportivos>" as core.HorarioInstalacion #e8f4d6 {
+    Horario de instalación deportiva
+    ..
+    Horarios globales o de club para una instalación dada
+    --
+    - id_horario_instalacion (AutoField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + nombre (CharField) - 
+    ~ id_tipo_diasemanal (ForeignKey) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.HorarioInstalacion -up- core.Instalacion
+core.HorarioInstalacion -up- core.Club
+core.HorarioInstalacion -up- core.TipoDiasemanal
+
+
+class "core.HorarioPista <Clubes deportivos>" as core.HorarioPista #e8f4d6 {
+    Horario de pista
+    ..
+    Horarios de una pista dada
+    --
+    - id_horario_pista (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    + nombre (CharField) - 
+    ~ id_tipo_diasemanal (ForeignKey) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.HorarioPista -up- core.Pista
+core.HorarioPista -up- core.TipoDiasemanal
+
+
+class "core.InscripcionEquipo <Clubes deportivos>" as core.InscripcionEquipo #e8f4d6 {
+    Inscripción de equipo en torneo
+    ..
+    Inscripciones de equipos a torneos
+    --
+    - id_inscripcion_equipo (AutoField) - 
+    ~ id_torneo_equipos (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    + fecha (DateField) - 
+    ~ id_estado_inscripcion (ForeignKey) - 
+    --
+}
+core.InscripcionEquipo -up- core.TorneoEquipos
+core.InscripcionEquipo -up- core.Equipo
+core.InscripcionEquipo -up- core.EstadoInscripcion
+
+
+class "core.InscripcionJugador <Clubes deportivos>" as core.InscripcionJugador #e8f4d6 {
+    Inscripción de jugador en torneo
+    ..
+    Inscripciones individuales a torneos
+    --
+    - id_inscripcion_jugador (AutoField) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha (DateField) - 
+    ~ id_estado_inscripcion (ForeignKey) - 
+    --
+}
+core.InscripcionJugador -up- core.TorneoIndividual
+core.InscripcionJugador -up- core.Jugador
+core.InscripcionJugador -up- core.EstadoInscripcion
+
+
+class "core.InscripcionPareja <Clubes deportivos>" as core.InscripcionPareja #e8f4d6 {
+    Inscripción de pareja en torneo
+    ..
+    Inscripciones de parejas a torneos
+    --
+    - id_inscripcion_pareja (AutoField) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    ~ id_pareja (ForeignKey) - 
+    + fecha (DateField) - 
+    ~ id_estado_inscripcion (ForeignKey) - 
+    --
+}
+core.InscripcionPareja -up- core.TorneoDobles
+core.InscripcionPareja -up- core.Pareja
+core.InscripcionPareja -up- core.EstadoInscripcion
+
+
+class "core.Instalacion <Clubes deportivos>" as core.Instalacion #e8f4d6 {
+    Instalación deportiva
+    ..
+    Instalaciones deportivas fijas o temporales donde se juega
+    --
+    - id_instalacion (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + plano (FileField) - 
+    + nombre (CharField) - 
+    + direccion_calle_num (CharField) - 
+    + direccion_localidad (CharField) - 
+    + direccion_codigopostal (CharField) - 
+    ~ direccion_provincia (ForeignKey) - 
+    + direccion_pais (CountryField) - 
+    + geoubicacion_latitud (DecimalField) - 
+    + geoubicacion_longitud (DecimalField) - 
+    + telefono_fijo (PhoneNumberField) - 
+    + telefono_movil (PhoneNumberField) - 
+    + telefono_otro (PhoneNumberField) - 
+    + email (EmailField) - 
+    + email_adicional (EmailField) - 
+    + sitio_web (URLField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Instalacion -up- core.Provincia
+
+
+class "core.Jugador <Clubes deportivos>" as core.Jugador #e8f4d6 {
+    Jugador
+    ..
+    Los jugadores son personas que practican un deporte
+    --
+    - id_jugador (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    + num_federado (CharField) - 
+    ~ id_tipo_lateralidad (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Jugador -up- core.Persona
+core.Jugador -up- core.TipoLateralidad
+
+
+class "core.Mandato <Clubes deportivos>" as core.Mandato #e8f4d6 {
+    Mandato [directivo-club]
+    ..
+    Contrato: Tabla de combinación N:M directivo-club
+    --
+    - id_mandato (AutoField) - 
+    ~ id_directivo (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_directivo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Mandato -up- core.Directivo
+core.Mandato -up- core.Club
+core.Mandato -up- core.TipoDirectivo
+
+
+class "core.Material <Clubes deportivos>" as core.Material #e8f4d6 {
+    Material
+    ..
+    Elementos portables que se almacenan en dependencias
+    --
+    - id_material (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + cantidad (IntegerField) - 
+    ~ id_dependencia (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Material -up- core.Dependencia
+
+
+class "core.MatriculaJugador <Clubes deportivos>" as core.MatriculaJugador #e8f4d6 {
+    Matrícula [jugador-curso]
+    ..
+    Matriculaciones individuales a cursos
+    --
+    - id_matricula_jugador (AutoField) - 
+    ~ id_curso (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.MatriculaJugador -up- core.Curso
+core.MatriculaJugador -up- core.Jugador
+
+
+class "core.Membresia <Clubes deportivos>" as core.Membresia #e8f4d6 {
+    Membresía [jugador-equipo]
+    ..
+    Membresía: Tabla de combinación N:M jugador-equipo
+    --
+    - id_membresia (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    ~ id_tipo_membresia (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Membresia -up- core.Jugador
+core.Membresia -up- core.Equipo
+core.Membresia -up- core.TipoMembresia
+
+
+class "core.Mensaje <Clubes deportivos>" as core.Mensaje #e8f4d6 {
+    Mensaje
+    ..
+    Mensajes de un club
+    --
+    - id_mensaje (AutoField) - 
+    ~ id_remitente (ForeignKey) - 
+    + token_qr (CharField) - 
+    ~ id_tipo_mensaje (ForeignKey) - 
+    + asunto (CharField) - 
+    + cuerpo (TextField) - 
+    + fecha_hora (DateTimeField) - 
+    + aplicacion_futura (BooleanField) - 
+    --
+}
+core.Mensaje -up- core.Club
+core.Mensaje -up- core.TipoMensaje
+
+
+class "core.Pareja <Clubes deportivos>" as core.Pareja #e8f4d6 {
+    Pareja
+    ..
+    Las parejas son conjuntos de dos jugadores
+    --
+    - id_pareja (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_jugador_izquierdo (ForeignKey) - 
+    ~ id_jugador_derecho (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Pareja -up- core.Club
+core.Pareja -up- core.Jugador
+core.Pareja -up- core.Jugador
+
+
+class "core.PartidoDobles <Clubes deportivos>" as core.PartidoDobles #e8f4d6 {
+    Partido de dobles
+    ..
+    Partidos de dobles sueltos o de torneo, y sus resultados
+    --
+    - id_partido_dobles (AutoField) - 
+    ~ id_pareja_local (ForeignKey) - 
+    ~ id_pareja_visitante (ForeignKey) - 
+    + token_qr (CharField) - 
+    + token_qr_confirmacion (CharField) - 
+    ~ id_estado_partido (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + fecha_hora (DateTimeField) - 
+    + tods_formato (CharField) - 
+    + tods_resultado (CharField) - 
+    ~ id_ganador (ForeignKey) - 
+    + comentarios (TextField) - 
+    --
+}
+core.PartidoDobles -up- core.Pareja
+core.PartidoDobles -up- core.Pareja
+core.PartidoDobles -up- core.EstadoPartido
+core.PartidoDobles -up- core.Pista
+core.PartidoDobles -up- core.TorneoDobles
+core.PartidoDobles -up- core.Pareja
+
+
+class "core.PartidoIndividual <Clubes deportivos>" as core.PartidoIndividual #e8f4d6 {
+    Partido individual
+    ..
+    Partidos individuales sueltos o de torneo, y sus resultados
+    --
+    - id_partido_individual (AutoField) - 
+    ~ id_jugador_local (ForeignKey) - 
+    ~ id_jugador_visitante (ForeignKey) - 
+    + token_qr (CharField) - 
+    + token_qr_confirmacion (CharField) - 
+    ~ id_estado_partido (ForeignKey) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + fecha_hora (DateTimeField) - 
+    + tods_formato (CharField) - 
+    + tods_resultado (CharField) - 
+    ~ id_ganador (ForeignKey) - 
+    + comentarios (TextField) - 
+    --
+}
+core.PartidoIndividual -up- core.Jugador
+core.PartidoIndividual -up- core.Jugador
+core.PartidoIndividual -up- core.EstadoPartido
+core.PartidoIndividual -up- core.Pista
+core.PartidoIndividual -up- core.TorneoIndividual
+core.PartidoIndividual -up- core.Jugador
+
+
+class "core.Persona <Clubes deportivos>" as core.Persona #e8f4d6 {
+    Persona
+    ..
+    Agrupamos todos los tipos de persona (evitamos duplicidades)
+    --
+    - id_persona (AutoField) - 
+    + foto (ImageField) - 
+    ~ id_tipo_identificacion (ForeignKey) - 
+    + docidentidad_valor (CharField) - 
+    + nombre (CharField) - 
+    + apellido_primero (CharField) - 
+    + apellido_segundo (CharField) - 
+    ~ id_tipo_sexo (ForeignKey) - 
+    + direccion_calle_num (CharField) - 
+    + direccion_localidad (CharField) - 
+    + direccion_codigopostal (CharField) - 
+    ~ direccion_provincia (ForeignKey) - 
+    + direccion_pais (CountryField) - 
+    + nacimiento_fecha (DateField) - 
+    + nacimiento_localidad (CharField) - 
+    + nacimiento_pais (CountryField) - 
+    + telefono_fijo (PhoneNumberField) - 
+    + telefono_movil (PhoneNumberField) - 
+    + telefono_otro (PhoneNumberField) - 
+    + email (EmailField) - 
+    + email_adicional (EmailField) - 
+    + auth_user (IntegerField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Persona -up- core.TipoIdentificacion
+core.Persona -up- core.TipoSexo
+core.Persona -up- core.Provincia
+
+
+class "core.Pertenencia <Clubes deportivos>" as core.Pertenencia #e8f4d6 {
+    Pertenencia [jugador-club]
+    ..
+    Pertenencia: Tabla de combinación N:M jugador-club
+    --
+    - id_pertenencia (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Pertenencia -up- core.Jugador
+core.Pertenencia -up- core.Club
+
+
+class "core.Pista <Clubes deportivos>" as core.Pista #e8f4d6 {
+    Pista
+    ..
+    Cada lugar de una instalación donde se juegan partidos
+    --
+    - id_pista (AutoField) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_pista (ForeignKey) - 
+    ~ id_tipo_suelo (ForeignKey) - 
+    + iluminada (BooleanField) - 
+    + tiene_llave (BooleanField) - 
+    + dimensiones_longitud (DecimalField) - 
+    + dimensiones_archura (DecimalField) - 
+    + dimensiones_altura (DecimalField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Pista -up- core.Instalacion
+core.Pista -up- core.TipoPista
+core.Pista -up- core.TipoSuelo
+
+
+class "core.Provincia <Clubes deportivos>" as core.Provincia #e8f4d6 {
+    Provincia
+    ..
+    Provincias de España
+    --
+    - id_provincia (AutoField) - 
+    + nombre (CharField) - 
+    + codigo_ine (CharField) - 
+    --
+}
+
+
+class "core.RankingJugadorClub <Clubes deportivos>" as core.RankingJugadorClub #e8f4d6 {
+    Ranking de jugador en club
+    ..
+    Ranking de un jugador en un club a lo largo del tiempo
+    --
+    - id_ranking_jugador_club (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingJugadorClub -up- core.Jugador
+core.RankingJugadorClub -up- core.Club
+
+
+class "core.RankingJugadorTorneo <Clubes deportivos>" as core.RankingJugadorTorneo #e8f4d6 {
+    Ranking de jugador en torneo
+    ..
+    Ranking de un jugador en un torneo determinado
+    --
+    - id_ranking_jugador_torneo (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingJugadorTorneo -up- core.Jugador
+core.RankingJugadorTorneo -up- core.TorneoIndividual
+
+
+class "core.RankingParejaClub <Clubes deportivos>" as core.RankingParejaClub #e8f4d6 {
+    Ranking de pareja en club
+    ..
+    Ranking de una pareja en un club a lo largo del tiempo
+    --
+    - id_ranking_pareja_club (AutoField) - 
+    ~ id_pareja (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingParejaClub -up- core.Pareja
+core.RankingParejaClub -up- core.Club
+
+
+class "core.RankingParejaTorneo <Clubes deportivos>" as core.RankingParejaTorneo #e8f4d6 {
+    Ranking de pareja en torneo
+    ..
+    Ranking de una pareja en un torneo de dobles determinado
+    --
+    - id_ranking_pareja_torneo (AutoField) - 
+    ~ id_pareja (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    + ronda_o_jornada (IntegerField) - 
+    + victorias (IntegerField) - 
+    + empates (IntegerField) - 
+    + derrotas (IntegerField) - 
+    + puntos (IntegerField) - 
+    + posicion (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.RankingParejaTorneo -up- core.Pareja
+core.RankingParejaTorneo -up- core.TorneoDobles
+
+
+class "core.Rating <Clubes deportivos>" as core.Rating #e8f4d6 {
+    Rating
+    ..
+    Rating de un jugador a lo largo del tiempo
+    --
+    - id_rating (AutoField) - 
+    ~ id_jugador (ForeignKey) - 
+    + wpr_puntuacion (DecimalField) - 
+    + wpr_incertidumbre (IntegerField) - 
+    + fecha (DateField) - 
+    --
+}
+core.Rating -up- core.Jugador
+
+
+class "core.ReservaClub <Clubes deportivos>" as core.ReservaClub #e8f4d6 {
+    Reserva de club
+    ..
+    Reserva de pista de un club, puede que para un equipo concreto
+    --
+    - id_reserva_club (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_equipo (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaClub -up- core.Pista
+core.ReservaClub -up- core.Club
+core.ReservaClub -up- core.Equipo
+
+
+class "core.ReservaCurso <Clubes deportivos>" as core.ReservaCurso #e8f4d6 {
+    Reserva de curso
+    ..
+    Reserva de pista por parte de un curso
+    --
+    - id_reserva_curso (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_curso (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaCurso -up- core.Pista
+core.ReservaCurso -up- core.Curso
+
+
+class "core.ReservaJugador <Clubes deportivos>" as core.ReservaJugador #e8f4d6 {
+    Reserva de jugador
+    ..
+    Reserva de pista por parte de un jugador
+    --
+    - id_reserva_jugador (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_jugador (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaJugador -up- core.Pista
+core.ReservaJugador -up- core.Jugador
+
+
+class "core.ReservaTorneoDobles <Clubes deportivos>" as core.ReservaTorneoDobles #e8f4d6 {
+    Reserva de torneo de dobles
+    ..
+    Reserva de pista por parte de un torneo de dobles
+    --
+    - id_reserva_torneo_dobles (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_dobles (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaTorneoDobles -up- core.Pista
+core.ReservaTorneoDobles -up- core.TorneoDobles
+
+
+class "core.ReservaTorneoEquipos <Clubes deportivos>" as core.ReservaTorneoEquipos #e8f4d6 {
+    Reserva de torneo por equipos
+    ..
+    Reserva de pista por parte de un torneo por equipos
+    --
+    - id_reserva_torneo_equipos (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_equipos (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaTorneoEquipos -up- core.Pista
+core.ReservaTorneoEquipos -up- core.TorneoEquipos
+
+
+class "core.ReservaTorneoIndividual <Clubes deportivos>" as core.ReservaTorneoIndividual #e8f4d6 {
+    Reserva de torneo individual
+    ..
+    Reserva de pista por parte de un torneo individual
+    --
+    - id_reserva_torneo_individual (AutoField) - 
+    ~ id_pista (ForeignKey) - 
+    ~ id_torneo_individual (ForeignKey) - 
+    + fecha_reserva (DateField) - 
+    + hora_inicio (TimeField) - 
+    + hora_fin (TimeField) - 
+    + fecha_solicitud (DateTimeField) - 
+    + fecha_confirmacion (DateTimeField) - 
+    + fecha_cancelacion (DateTimeField) - 
+    + fecha_asistencia (DateTimeField) - 
+    --
+}
+core.ReservaTorneoIndividual -up- core.Pista
+core.ReservaTorneoIndividual -up- core.TorneoIndividual
+
+
+class "core.Tecnico <Clubes deportivos>" as core.Tecnico #e8f4d6 {
+    Técnico
+    ..
+    Los técnicos son personas que poseen una titulación
+    --
+    - id_tecnico (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    + num_federado (CharField) - 
+    ~ id_tipo_titulacion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Tecnico -up- core.Persona
+core.Tecnico -up- core.TipoTitulacion
+
+
+class "core.Posesion <Clubes deportivos>" as core.Posesion #e8f4d6 {
+    Posesión [instalación-club]
+    ..
+    Posesion: Tabla de combinación N:M instalacion-club
+    --
+    - id_posesion (AutoField) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_tipo_posesion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activa (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Posesion -up- core.Instalacion
+core.Posesion -up- core.Club
+core.Posesion -up- core.TipoPosesion
+
+
+class "core.TorneoDobles <Clubes deportivos>" as core.TorneoDobles #e8f4d6 {
+    Torneo de dobles
+    ..
+    Torneos de dobles
+    --
+    - id_torneo_dobles (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_director (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + mixto (BooleanField) - 
+    ~ id_tipo_competicion (ForeignKey) - 
+    + rondas_o_jornadas (IntegerField) - 
+    + torneo_inicio (DateField) - 
+    + torneo_fin (DateField) - 
+    + inscripcion_inicio (DateField) - 
+    + inscripcion_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.TorneoDobles -up- core.Club
+core.TorneoDobles -up- core.Tecnico
+core.TorneoDobles -up- core.Instalacion
+core.TorneoDobles -up- core.Categoria
+core.TorneoDobles -up- core.TipoCompeticion
+
+
+class "core.TorneoEquipos <Clubes deportivos>" as core.TorneoEquipos #e8f4d6 {
+    Torneo por equipos
+    ..
+    Torneos por equipos
+    --
+    - id_torneo_equipos (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_director (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    + integrantes_minimos (IntegerField) - 
+    + integrantes_maximos (IntegerField) - 
+    ~ id_tipo_competicion (ForeignKey) - 
+    + rondas_o_jornadas (IntegerField) - 
+    + torneo_inicio (DateField) - 
+    + torneo_fin (DateField) - 
+    + inscripcion_inicio (DateField) - 
+    + inscripcion_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.TorneoEquipos -up- core.Club
+core.TorneoEquipos -up- core.Tecnico
+core.TorneoEquipos -up- core.Instalacion
+core.TorneoEquipos -up- core.Categoria
+core.TorneoEquipos -up- core.TipoCompeticion
+
+
+class "core.TorneoIndividual <Clubes deportivos>" as core.TorneoIndividual #e8f4d6 {
+    Torneo individual
+    ..
+    Torneos individuales
+    --
+    - id_torneo_individual (AutoField) - 
+    ~ id_club (ForeignKey) - 
+    ~ id_director (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_categoria (ForeignKey) - 
+    + token_qr (CharField) - 
+    + foto (ImageField) - 
+    + nombre (CharField) - 
+    ~ id_tipo_competicion (ForeignKey) - 
+    + rondas_o_jornadas (IntegerField) - 
+    + torneo_inicio (DateField) - 
+    + torneo_fin (DateField) - 
+    + inscripcion_inicio (DateField) - 
+    + inscripcion_fin (DateField) - 
+    + aforo_minimo (IntegerField) - 
+    + aforo_maximo (IntegerField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.TorneoIndividual -up- core.Club
+core.TorneoIndividual -up- core.Tecnico
+core.TorneoIndividual -up- core.Instalacion
+core.TorneoIndividual -up- core.Categoria
+core.TorneoIndividual -up- core.TipoCompeticion
+
+
+class "core.TipoCalendario <Clubes deportivos>" as core.TipoCalendario #e8f4d6 {
+    Tipo de calendario
+    ..
+    Tipos de entradas de calendario
+    --
+    - id_tipo_calendario (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoSexo <Clubes deportivos>" as core.TipoSexo #e8f4d6 {
+    Sexo
+    ..
+    Tipos de sexo posibles
+    --
+    - id_tipo_sexo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.EstadoClase <Clubes deportivos>" as core.EstadoClase #e8f4d6 {
+    Estado de una clase
+    ..
+    Estados posibles de una clase
+    --
+    - id_estado_clase (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoContrato <Clubes deportivos>" as core.TipoContrato #e8f4d6 {
+    Tipo de contrato
+    ..
+    Tipos posibles de contrato
+    --
+    - id_tipo_contrato (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoCurso <Clubes deportivos>" as core.TipoCurso #e8f4d6 {
+    Tipo de curso
+    ..
+    Tipos posibles de curso
+    --
+    - id_tipo_curso (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoDependencia <Clubes deportivos>" as core.TipoDependencia #e8f4d6 {
+    Tipo de dependencia
+    ..
+    Tipos posibles de dependencia
+    --
+    - id_tipo_dependencia (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoMensaje <Clubes deportivos>" as core.TipoMensaje #e8f4d6 {
+    Tipo de mensaje
+    ..
+    Tipos posibles de mensaje
+    --
+    - id_tipo_mensaje (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.EstadoEnvio <Clubes deportivos>" as core.EstadoEnvio #e8f4d6 {
+    Estado de un envío
+    ..
+    Estados posibles de un envío
+    --
+    - id_estado_envio (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoDiasemanal <Clubes deportivos>" as core.TipoDiasemanal #e8f4d6 {
+    Día de la semana
+    ..
+    Días de la semana
+    --
+    - id_tipo_diasemanal (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.EstadoInscripcion <Clubes deportivos>" as core.EstadoInscripcion #e8f4d6 {
+    Estado de una inscripción
+    ..
+    Estados posibles de una inscripción
+    --
+    - id_estado_inscripcion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoLateralidad <Clubes deportivos>" as core.TipoLateralidad #e8f4d6 {
+    Tipo de lateralidad
+    ..
+    Tipos posibles de lateralidad
+    --
+    - id_tipo_lateralidad (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoDirectivo <Clubes deportivos>" as core.TipoDirectivo #e8f4d6 {
+    Tipo de directivo
+    ..
+    Tipos posibles de directivo
+    --
+    - id_tipo_directivo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoMembresia <Clubes deportivos>" as core.TipoMembresia #e8f4d6 {
+    Tipo de membresía
+    ..
+    Tipos posibles de membresía
+    --
+    - id_tipo_membresia (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.EstadoPartido <Clubes deportivos>" as core.EstadoPartido #e8f4d6 {
+    Estado de un partido
+    ..
+    Estados posibles de un partido
+    --
+    - id_estado_partido (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoIdentificacion <Clubes deportivos>" as core.TipoIdentificacion #e8f4d6 {
+    Tipo de identificación
+    ..
+    Tipos posibles de identificación
+    --
+    - id_tipo_identificacion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoPista <Clubes deportivos>" as core.TipoPista #e8f4d6 {
+    Tipo de pista
+    ..
+    Tipos posibles de pista
+    --
+    - id_tipo_pista (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoSuelo <Clubes deportivos>" as core.TipoSuelo #e8f4d6 {
+    Tipo de suelo
+    ..
+    Tipos posibles de suelo
+    --
+    - id_tipo_suelo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoTitulacion <Clubes deportivos>" as core.TipoTitulacion #e8f4d6 {
+    Tipo de titulación
+    ..
+    Tipos posibles de titulación
+    --
+    - id_tipo_titulacion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoPosesion <Clubes deportivos>" as core.TipoPosesion #e8f4d6 {
+    Tipo de posesión
+    ..
+    Tipos posibles de posesión
+    --
+    - id_tipo_posesion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoCompeticion <Clubes deportivos>" as core.TipoCompeticion #e8f4d6 {
+    Tipo de competición
+    ..
+    Tipos posibles de competición
+    --
+    - id_tipo_competicion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.Operario <Clubes deportivos>" as core.Operario #e8f4d6 {
+    Operario
+    ..
+    Los operarios son personas que poseen una capacitación
+    --
+    - id_operario (AutoField) - 
+    ~ id_persona (ForeignKey) - 
+    + token_qr (CharField) - 
+    ~ id_tipo_capacitacion (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Operario -up- core.Persona
+core.Operario -up- core.TipoCapacitacion
+
+
+class "core.Empleo <Clubes deportivos>" as core.Empleo #e8f4d6 {
+    Empleo [operario-instalación]
+    ..
+    Contrato: Tabla de combinación N:M operario-instalación
+    --
+    - id_empleo (AutoField) - 
+    ~ id_operario (ForeignKey) - 
+    ~ id_instalacion (ForeignKey) - 
+    ~ id_tipo_empleo (ForeignKey) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+core.Empleo -up- core.Operario
+core.Empleo -up- core.Instalacion
+core.Empleo -up- core.TipoEmpleo
+
+
+class "core.TipoEmpleo <Clubes deportivos>" as core.TipoEmpleo #e8f4d6 {
+    Tipo de empleo
+    ..
+    Tipos posibles de empleo
+    --
+    - id_tipo_empleo (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "core.TipoCapacitacion <Clubes deportivos>" as core.TipoCapacitacion #e8f4d6 {
+    Tipo de capacitación
+    ..
+    Tipos posibles de capacitación
+    --
+    - id_tipo_capacitacion (AutoField) - 
+    + nombre (CharField) - 
+    + fecha_alta (DateField) - 
+    + fecha_baja (DateField) - 
+    + activo (BooleanField) - 
+    + comentarios (TextField) - 
+    --
+}
+
+
+class "djf_surveys.Survey <Encuestas>" as djf_surveys.Survey #f4d6e1 {
+    Encuesta
+    ..
+    Survey(id, created_at, updated_at, name, description, slug, editable, deletable,
+duplicate_entry, cycle_survey, private_response, can_anonymous_user,
+notification_to, success_page_content)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    + name (CharField) - 
+    + description (HTMLField) - 
+    + slug (SlugField) - 
+    + editable (BooleanField) - If False, user can't edit record.
+    + deletable (BooleanField) - If False, user can't delete record.
+    + duplicate_entry (BooleanField) - If True, user can resubmit.
+    + cycle_survey (BooleanField) - If True, success page returns to survey
+    + private_response (BooleanField) - If True, only admin and owner can access.
+    + can_anonymous_user (BooleanField) - If True, user without authentatication
+can submit.
+    + notification_to (TextField) - Enter your email to be notified when the form
+is submitted
+    + success_page_content (HTMLField) - 
+    --
+}
+
+
+class "djf_surveys.Question <Encuestas>" as djf_surveys.Question #f4d6e1 {
+    Pregunta
+    ..
+    Question(id, created_at, updated_at, key, survey, label, type_field, choices,
+help_text, required, ordering)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    + key (CharField) - Unique key for this question, fill in the blank if you want
+to use for automatic generation.
+    ~ survey (ForeignKey) - 
+    + label (CharField) - Enter your question in here.
+    + type_field (PositiveSmallIntegerField) - 
+    + choices (TextField) - If type of field is radio, select, or multi select,
+fill in the options separated by commas. Ex: Male, Female.
+    + help_text (CharField) - You can add a help text in here.
+    + required (BooleanField) - If True, the user must provide an answer to this
+question.
+    + ordering (PositiveIntegerField) - Defines the question order within the
+surveys.
+    --
+}
+djf_surveys.Question -up- djf_surveys.Survey
+
+
+class "djf_surveys.UserAnswer <Encuestas>" as djf_surveys.UserAnswer #f4d6e1 {
+    Encuesta ya respondida
+    ..
+    UserAnswer(id, created_at, updated_at, survey, user)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    ~ survey (ForeignKey) - 
+    ~ user (ForeignKey) - 
+    --
+}
+djf_surveys.UserAnswer -up- djf_surveys.Survey
+djf_surveys.UserAnswer -up- auth.User
+
+
+class "djf_surveys.Answer <Encuestas>" as djf_surveys.Answer #f4d6e1 {
+    Respuesta
+    ..
+    Answer(id, created_at, updated_at, question, value, user_answer)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    ~ question (ForeignKey) - 
+    + value (TextField) - The value of the answer given by the user.
+    ~ user_answer (ForeignKey) - 
+    --
+}
+djf_surveys.Answer -up- djf_surveys.Question
+djf_surveys.Answer -up- djf_surveys.UserAnswer
+
+
+class "djf_surveys.TermsValidators <Encuestas>" as djf_surveys.TermsValidators #f4d6e1 {
+    Validador personalizado
+    ..
+    TermsValidators(id, created_at, updated_at, question, terms)
+    --
+    + id (BigAutoField) - 
+    + created_at (DateTimeField) - 
+    + updated_at (DateTimeField) - 
+    ~ question (OneToOneField) - 
+    + terms (JSONField) - 
+    --
+}
+djf_surveys.TermsValidators -up- djf_surveys.Question
+
+
+@enduml

@@ -1,0 +1,46 @@
+[
+{
+  "model": "core.tipoidentificacion",
+  "pk": 1,
+  "fields": {
+    "nombre": "DNI",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoidentificacion",
+  "pk": 2,
+  "fields": {
+    "nombre": "NIE",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoidentificacion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Pasaporte",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+},
+{
+  "model": "core.tipoidentificacion",
+  "pk": 4,
+  "fields": {
+    "nombre": "Otros",
+    "fecha_alta": "2025-06-06",
+    "fecha_baja": null,
+    "activo": true,
+    "comentarios": ""
+  }
+}
+]
